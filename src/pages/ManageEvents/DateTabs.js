@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Tabs, Tab, Typography, Box, AppBar } from "@material-ui/core";
 import moment from "moment";
-import ActivityList from "./ActivityList";
+import Activity from "./Activity";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,6 +80,9 @@ export default function DateTabs({ data, refetch }) {
   const activityDate = data?.event?.activities.map(activity => {
     return activity?.date;
   });
+  const activitiesArray = data?.event?.activities.map(activity => {
+    return activity;
+  });
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -97,8 +100,10 @@ export default function DateTabs({ data, refetch }) {
           ))}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <ActivityList data={data} refetch={refetch} />
+      <TabPanel value={value}>
+        {activitiesArray.reduce(activity => console.log(activity))}
+        <Activity data={data} refetch={refetch} />
+        {/* <ActivityList data={data} refetch={refetch} /> */}
       </TabPanel>
     </div>
   );

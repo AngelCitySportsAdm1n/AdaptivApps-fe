@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($email: String!) {
     profile(where: { email: $email }) {
+      id
       firstName
       lastName
       email
@@ -32,6 +33,7 @@ export const NOTIFICATION_SUBSCRIPTION = gql`
         id
         label
         announcement {
+          id
           title
           message
         }

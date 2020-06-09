@@ -53,6 +53,7 @@ export const SEND_CHAT = gql`
     ) {
       id
       from {
+        id
         firstName
         lastName
       }
@@ -139,6 +140,7 @@ export const CHAT_SUBSCRIPTION = gql`
           id
         }
         from {
+          id
           firstName
           lastName
         }

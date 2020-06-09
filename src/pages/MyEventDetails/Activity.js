@@ -21,6 +21,7 @@ const useStyles = makeStyles({
       textDecoration: "none",
     },
   },
+  startTime: { maxWidth: "12rem" },
   nameLink: {
     textAlign: "left",
     alignItems: "start",
@@ -65,7 +66,7 @@ export default function Activities({
             ) : (
               <td>{activity?.location}</td>
             )}
-            <td>{activity?.startTime}</td>
+            <td className={classes.startTime}>{activity?.startTime}</td>
             {activity?.participants.map((participant, id) =>
               participant &&
               participant?.activityProfile?.email === user.email ? (

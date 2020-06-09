@@ -29,6 +29,7 @@ export const UPDATE_USER_PROFILE = gql`
         legal: $legal
       }
     ) {
+      id
       type
       private
       firstName
@@ -49,6 +50,7 @@ export const UPDATE_USER_PROFILE = gql`
 export const ADD_USER_PROFILE = gql`
   mutation createProfile($email: String!) {
     createProfile(data: { email: $email }) {
+      id
       email
     }
   }

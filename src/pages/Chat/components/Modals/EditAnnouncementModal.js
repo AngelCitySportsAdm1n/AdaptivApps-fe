@@ -75,7 +75,9 @@ function EditAnnouncementModal({
 }) {
   const classes = useStyles();
 
-  const [updateAnnouncement] = useMutation(UPDATE_ANNOUNCEMENT);
+  const [updateAnnouncement] = useMutation(UPDATE_ANNOUNCEMENT, {
+    fetchPolicy: "no-cache",
+  });
 
   const [updateTitle, setUpdateTitle] = useState(announcement.title);
   const [updateMessage, setUpdateMessage] = useState(announcement.message);

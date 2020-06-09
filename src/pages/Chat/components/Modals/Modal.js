@@ -112,7 +112,9 @@ function RecipientModal({
   const [errorState, setErrorState] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
-  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM, {
+    fetchPolicy: "no-cache",
+  });
 
   // Search for a recipient logic
   const searchContacts = e => {

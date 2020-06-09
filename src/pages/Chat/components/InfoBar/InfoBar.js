@@ -116,33 +116,37 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
-  const {
-    loading,
-    error,
-    data,
-    refetch,
-    subscribeToMore,
-  } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-  const { data: recipients } = useQuery(GET_RECIPIENTS);
+  const { loading, error, data, refetch, subscribeToMore } = useQuery(
+    GET_CHAT_ROOMS,
+    {
+      variables: { email: user.email },
+      fetchPolicy: "no-cache",
+    }
+  );
+  const { data: recipients } = useQuery(GET_RECIPIENTS, {
+    fetchPolicy: "no-cache",
+  });
   const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, {
     variables: { isAnnouncementRoom: true },
+    fetchPolicy: "no-cache",
   });
   const { data: chats, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, {
     variables: { email: user.email },
+    fetchPolicy: "no-cache",
   });
 
   // Chat Room Subscription
-  const _subscribeToNewChatRoom = subscribeToMore => {
-    subscribeToMore({
+  const _subscribeToNewChatRoom = async subscribeToMore => {
+    await subscribeToMore({
       document: CHAT_ROOM_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
+      updateQuery: async (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const chatRoom = subscriptionData.data.chatRoom;
-        refetch();
-        refetchProfile();
+        const chatRoom = subscriptionData?.data?.chatRoom;
+        await refetch();
+        await refetchProfile();
         return Object.assign({}, prev, {
           profile: {
-            chatRooms: [chatRoom, ...prev.profile.chatRooms],
+            chatRooms: [chatRoom, ...prev?.profile?.chatRooms],
             __typename: prev.profile.__typename,
           },
         });

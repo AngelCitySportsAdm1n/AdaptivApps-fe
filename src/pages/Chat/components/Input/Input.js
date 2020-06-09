@@ -100,7 +100,7 @@ const Input = ({ chatRoom, user }) => {
         recipient: recipient[0].email,
       },
     });
-    setMessage("");
+    await setMessage("");
   };
 
   return (

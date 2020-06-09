@@ -177,13 +177,17 @@ function SideNav(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   // Setup Chat and Announcement Subscriptions
-  const { refetch } = useQuery(GET_CHAT_ROOMS, {
+  const { data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, {
     variables: { email: user.email },
+    fetchPolicy: "no-cache",
   });
   const {
     subscribeToMore: announcementSubscription,
     refetch: refetchAnnouncements,
-  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  } = useQuery(GET_ANNOUNCEMENTS, {
+    variables: { isAnnouncementRoom: true },
+    fetchPolicy: "no-cache",
+  });
   const { subscribeToMore } = useQuery(GET_MESSAGES, {
     variables: { email: user.email },
   });
@@ -191,9 +195,13 @@ function SideNav(props) {
     variables: { email: user.email },
     fetchPolicy: "no-cache",
   });
-  const {
-    subscribeToMore: notificationSubscription,
-  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
+  const { subscribeToMore: notificationSubscription } = useQuery(
+    GET_NOTIFICATIONS,
+    {
+      variables: { email: user.email },
+      fetchPolicy: "no-cache",
+    }
+  );
 
   // Chat Subscription
   const _subscribeToNewChats = async subscribeToMore => {
@@ -247,7 +255,7 @@ function SideNav(props) {
         refetchProfile();
         return Object.assign({}, prev, {
           profile: {
-            notifications: [notification, ...prev.profile.notifications],
+            notifications: [notification, ...prev?.profile?.notifications],
             __typename: prev.profile.__typename,
           },
         });

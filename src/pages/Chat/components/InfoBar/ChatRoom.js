@@ -141,8 +141,12 @@ const useStyles = makeStyles(theme => ({
 export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const classes = useStyles();
 
-  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
-  const [deleteNotifications] = useMutation(DELETE_NOTIFICATION);
+  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM, {
+    fetchPolicy: "no-cache",
+  });
+  const [deleteNotifications] = useMutation(DELETE_NOTIFICATION, {
+    fetchPolicy: "no-cache",
+  });
 
   const [messageToggle, setMessageToggle] = useState(false);
   const [editChatRoom, setEditChatRoom] = useState(false);
@@ -168,7 +172,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const notifications = () => {
     if (
       chats !== undefined &&
-      chats && chats.profile.notifications.length > 0
+      chats &&
+      chats.profile.notifications.length > 0
     ) {
       chats.profile.notifications.map(item => {
         if (item.chat !== null && item.chat.room.id === chatRoom.id) {
@@ -206,12 +211,12 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
 
   const messages = chatRoom.chats.map(chat => {
     return {
-      id: chat.id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email,
+      id: chat?.id,
+      message: chat?.message,
+      createdAt: chat?.createdAt,
+      firstName: chat?.from?.firstName,
+      lastName: chat?.from?.lastName,
+      sender: chat?.from?.email,
     };
   });
 
@@ -250,8 +255,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
         id: chatRoom.id,
       },
     });
-    setEditChatRoom(false);
-    setDeleteRoom(true);
+    await setEditChatRoom(false);
+    await setDeleteRoom(true);
   };
 
   return (

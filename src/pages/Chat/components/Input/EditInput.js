@@ -68,7 +68,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   const classes = useStyles();
   const [toggleEmoji, setToggleEmoji] = useState(false);
 
-  const [updateChat] = useMutation(UPDATE_CHAT);
+  const [updateChat] = useMutation(UPDATE_CHAT, { fetchPolicy: "no-cache" });
   const [message, setMessage] = useState(messageToEdit.message);
 
   const emojiClick = e => {

@@ -1,96 +1,97 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 // Query / Mutations
 import { useQuery, useMutation } from "react-apollo";
-import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT } from '../../queries/Announcements';
-import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
+import {
+  GET_ANNOUNCEMENTS,
+  DELETE_ANNOUNCEMENT,
+} from "../../queries/Announcements";
+import EditAnnouncementModal from "../Modals/EditAnnouncementModal";
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
 
 // Styling imports
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Tooltip from '@material-ui/core/Tooltip';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import {
-  makeStyles
-} from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
     border: "none",
-    maxWidth: '95%',
-    marginLeft: '1%'
+    maxWidth: "95%",
+    marginLeft: "1%",
   },
   messageText: {
     marginTop: "0",
     padding: "0 2%",
-    fontSize: '1.5rem'
+    fontSize: "1.5rem",
   },
   messageHeader: {
-    marginBottom: '2%',
-    padding: '1%',
-    display: 'flex',
-    justifyContent: 'space-between'
+    marginBottom: "2%",
+    padding: "1%",
+    display: "flex",
+    justifyContent: "space-between",
   },
   sender: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    marginBottom: '0'
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    marginBottom: "0",
   },
   messageBox: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: '1.5%',
-    marginLeft: '3%',
-    width: '97%'
+    display: "flex",
+    alignItems: "center",
+    marginTop: "1.5%",
+    marginLeft: "3%",
+    width: "97%",
   },
   messageSender: {
-    backgroundColor: '#C4C4C480',
-    padding: '1% 2%',
-    fontSize: '1.5rem',
-    width: '40%',
-    borderRadius: '8px'
+    backgroundColor: "#C4C4C480",
+    padding: "1% 2%",
+    fontSize: "1.5rem",
+    width: "40%",
+    borderRadius: "8px",
   },
   userMessage: {
-    backgroundColor: '#2962ff51',
-    padding: '1% 2%',
-    fontSize: '1.5rem',
-    width: '100%',
-    borderRadius: '8px'
+    backgroundColor: "#2962ff51",
+    padding: "1% 2%",
+    fontSize: "1.5rem",
+    width: "100%",
+    borderRadius: "8px",
   },
   messageDiv: {
-    maxHeight: '90vh',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    margin: '0 8%'
+    maxHeight: "90vh",
+    overflowY: "auto",
+    overflowX: "hidden",
+    margin: "0 8%",
   },
   header: {
-    fontSize: '2rem',
-    marginLeft: '4%'
+    fontSize: "2rem",
+    marginLeft: "4%",
   },
   iconDiv: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '6%'
+    display: "flex",
+    justifyContent: "space-between",
+    width: "6%",
   },
   editIcon: {
-    '&:hover': {
-      cursor: 'pointer',
-      color: '#2962FF'
-    }
+    "&:hover": {
+      cursor: "pointer",
+      color: "#2962FF",
+    },
   },
   deleteIcon: {
-    '&:hover': {
-      cursor: 'pointer',
-      color: 'red'
-    }
-  }
+    "&:hover": {
+      cursor: "pointer",
+      color: "red",
+    },
+  },
 }));
 
 export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
@@ -99,30 +100,37 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
   const [announcementOpen, setAnnouncementOpen] = useState(false);
   const [announcementToEdit, setAnnouncementToEdit] = useState();
 
-  const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT);
-
-  const { loading, error, data } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-
-  const announcements = data && data?.announcements?.map((announcement) => {return {
-      id: announcement.id,
-      title: announcement.title,
-      message: announcement.message,
-      createdAt: announcement.createdAt,
-      notification: announcement.notification      
-    }
+  const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT, {
+    fetchPolicy: "no-cache",
   });
 
+  const { loading, error, data } = useQuery(GET_ANNOUNCEMENTS, {
+    variables: { isAnnouncementRoom: true },
+    fetchPolicy: "no-cache",
+  });
+
+  const announcements =
+    data &&
+    data?.announcements?.map(announcement => {
+      return {
+        id: announcement?.id,
+        title: announcement?.title,
+        message: announcement?.message,
+        createdAt: announcement?.createdAt,
+        notification: announcement?.notification,
+      };
+    });
+
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
-  const announcementsEndRef = useRef(null)
+  const announcementsEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
+    announcementsEndRef.current &&
+      announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-
   useEffect(() => {
-
-    scrollToBottom()
+    scrollToBottom();
   }, [announcements]);
 
   const handleClose = () => {
@@ -130,9 +138,9 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
   };
 
   // Delete an announcement
-  const deleteMessage = async (announcement) => {
+  const deleteMessage = async announcement => {
     await deleteAnnouncement({
-      variables: { id: announcement.id }
+      variables: { id: announcement?.id },
     });
     setDeleteChat(true);
   };
@@ -143,21 +151,31 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {announcements.map((announcement) => (
+        {announcements.map(announcement => (
           <>
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
                   <p className={classes.sender}>{announcement.title}</p>
                   {user && user[config.roleUrl].includes("Admin") ? (
-                  <div className={classes.iconDiv}>
-                  <Tooltip title="Edit Announcement">
-                    <EditOutlinedIcon className={classes.editIcon} onClick={() => {setAnnouncementOpen(true); setAnnouncementToEdit(announcement)}} />
-                  </Tooltip>
-                  <Tooltip title="Delete Announcement">
-                    <DeleteIcon className={classes.deleteIcon} onClick={() => deleteMessage(announcement)} />
-                  </Tooltip>
-                  </div>) : null}
+                    <div className={classes.iconDiv}>
+                      <Tooltip title="Edit Announcement">
+                        <EditOutlinedIcon
+                          className={classes.editIcon}
+                          onClick={() => {
+                            setAnnouncementOpen(true);
+                            setAnnouncementToEdit(announcement);
+                          }}
+                        />
+                      </Tooltip>
+                      <Tooltip title="Delete Announcement">
+                        <DeleteIcon
+                          className={classes.deleteIcon}
+                          onClick={() => deleteMessage(announcement)}
+                        />
+                      </Tooltip>
+                    </div>
+                  ) : null}
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
                 <div ref={announcementsEndRef} />
@@ -175,10 +193,15 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
           BackdropComponent={Backdrop}
           BackdropProps={{
             timeout: 500,
-          }}>
-          <EditAnnouncementModal setAnnouncementOpen={setAnnouncementOpen} announcement={announcementToEdit} setUpdateChat={setUpdateChat} />
+          }}
+        >
+          <EditAnnouncementModal
+            setAnnouncementOpen={setAnnouncementOpen}
+            announcement={announcementToEdit}
+            setUpdateChat={setUpdateChat}
+          />
         </Modal>
       </div>
     </div>
-  )
-};
+  );
+}

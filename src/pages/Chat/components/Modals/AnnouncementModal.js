@@ -1,86 +1,88 @@
 import React, { useState } from "react";
 import { useMutation } from "react-apollo";
-import { CREATE_ANNOUNCEMENT } from '../../queries/Announcements';
+import { CREATE_ANNOUNCEMENT } from "../../queries/Announcements";
 
 //Style imports
-import CloseIcon from '@material-ui/icons/Close';
-import Tooltip from '@material-ui/core/Tooltip';
-import {
-  makeStyles,
-  Button,
-  Box,
-  TextField
-} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles, Button, Box, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   span: {
-    fontSize: '2rem',
-    color: '#2962FF',
-    textAlign: 'center',
-    fontWeight: 'normal',
-    marginTop: '0%'
+    fontSize: "2rem",
+    color: "#2962FF",
+    textAlign: "center",
+    fontWeight: "normal",
+    marginTop: "0%",
   },
   modal: {
     fontSize: "-webkit-xxx-large",
-    width: '50%'
+    width: "50%",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    borderRadius: '5px',
+    border: "2px solid #000",
+    borderRadius: "5px",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
   },
   closeModal: {
     fontSize: "2rem",
-    marginLeft: '100%',
+    marginLeft: "100%",
     border: "none",
-    '&:hover': {
+    "&:hover": {
       cursor: "pointer",
-      color: "#2962FF"
-    }, 
-    '&:focus': {
-      outline: "none"
-    }
+      color: "#2962FF",
+    },
+    "&:focus": {
+      outline: "none",
+    },
   },
   titles: {
-    fontSize: '1.5rem',
-    marginBottom: '0',
-    fontWeight: 'normal'
+    fontSize: "1.5rem",
+    marginBottom: "0",
+    fontWeight: "normal",
   },
   titleDiv: {
     display: "flex",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   titleInput: {
-    width: '100%'
+    width: "100%",
   },
   buttonDiv: {
-    marginTop: '5%',
-    display: 'flex',
-    justifyContent: 'center'
+    marginTop: "5%",
+    display: "flex",
+    justifyContent: "center",
   },
   button: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    background: '#2962FF',
-    color: 'white',
-    '&:hover': {
-      color: '#2962FF'
-    }
-  }
+    fontSize: "2rem",
+    fontWeight: "bold",
+    background: "#2962FF",
+    color: "white",
+    "&:hover": {
+      color: "#2962FF",
+    },
+  },
 }));
-  
-function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
+
+function AnnouncementModal({
+  setAnnouncementOpen,
+  setAlertOpen,
+  validParticipants,
+  user,
+}) {
   const classes = useStyles();
 
-  const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
+  const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT, {
+    fetchPolicy: "no-cache",
+  });
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
 
-  const [notification, setNotification] = useState(true)
-  
+  const [notification, setNotification] = useState(true);
+
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
   };
@@ -90,8 +92,12 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   };
 
   // Create array of emails to match BE data shape, exclude yourself
-  const allUserEmails = validParticipants.map(participant => user.email !== participant.email && 
-    { "email": participant.email }).filter(participant => participant !== false)
+  const allUserEmails = validParticipants
+    .map(
+      participant =>
+        user.email !== participant.email && { email: participant.email }
+    )
+    .filter(participant => participant !== false);
 
   // Send announcement to BE & all
   const onSubmit = e => {
@@ -103,8 +109,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         isAnnouncementRoom: true,
         recipients: allUserEmails,
         participants: allUserEmails,
-      }
-    })
+      },
+    });
     setAnnouncementOpen(false);
     setAlertOpen(true);
   };
@@ -115,14 +121,16 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   };
 
   return (
-    <div className={classes.modal}>          
+    <div className={classes.modal}>
       <div className={classes.paper}>
         <Tooltip title="Cancel">
           <CloseIcon className={classes.closeModal} onClick={closeModal} />
         </Tooltip>
-        <h2 id="transition-modal-title" className={classes.span}>Create New Announcement</h2>
+        <h2 id="transition-modal-title" className={classes.span}>
+          Create New Announcement
+        </h2>
         <h3 className={classes.titles}>Announcement Title</h3>
-        <div className={classes.titleDiv}>       
+        <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
               variant="outlined"
@@ -130,7 +138,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
               fullWidth
               name="announcementTitle"
               value={newAnnouncement}
-              onChange={handleTitleChange} />
+              onChange={handleTitleChange}
+            />
           </Box>
         </div>
         <h3 className={classes.titles}>Announcement Text</h3>
@@ -145,19 +154,25 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
               type="text"
               name="announcementText"
               value={newAnnouncementText}
-              onChange={handleMessageChange} />
+              onChange={handleMessageChange}
+            />
           </Box>
-        </div>      
+        </div>
         <div className={classes.buttonDiv}>
           <Tooltip title="Send Announcement">
-            <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={onSubmit}
+              className={classes.button}
+            >
               Send Announcement
             </Button>
           </Tooltip>
         </div>
       </div>
     </div>
-  )
-};
-  
+  );
+}
+
 export default AnnouncementModal;

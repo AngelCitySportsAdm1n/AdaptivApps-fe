@@ -189,23 +189,24 @@ function SideNav(props) {
   });
   const { data, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, {
     variables: { email: user.email },
+    fetchPolicy: "no-cache",
   });
   const {
     subscribeToMore: notificationSubscription,
   } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
 
   // Chat Subscription
-  const _subscribeToNewChats = subscribeToMore => {
-    subscribeToMore({
+  const _subscribeToNewChats = async subscribeToMore => {
+    await subscribeToMore({
       document: CHAT_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const chat = subscriptionData.data.chat;
+        const chat = subscriptionData?.data?.chat;
         refetch();
         refetchProfile();
         return Object.assign({}, prev, {
           profile: {
-            chats: [chat, ...prev.profile.chats],
+            chats: [chat, ...prev?.profile?.chats],
             __typename: prev.profile.__typename,
           },
         });
@@ -216,16 +217,16 @@ function SideNav(props) {
   _subscribeToNewChats(subscribeToMore);
 
   // Announcement Subscription
-  const _subscribeToNewAnnouncements = announcementSubscription => {
-    announcementSubscription({
+  const _subscribeToNewAnnouncements = async announcementSubscription => {
+    await announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const announcement = subscriptionData.data.announcement;
+        const announcement = subscriptionData?.data?.announcement;
         refetchAnnouncements();
         refetchProfile();
         return Object.assign({}, prev, {
-          announcements: [announcement, ...prev.announcements],
+          announcements: [announcement, ...prev?.announcements],
           __typename: prev.__typename,
         });
       },
@@ -235,12 +236,12 @@ function SideNav(props) {
   _subscribeToNewAnnouncements(announcementSubscription);
 
   // Notification Subscription
-  const _subscribeToNewNotifications = notificationSubscription => {
-    notificationSubscription({
+  const _subscribeToNewNotifications = async notificationSubscription => {
+    await notificationSubscription({
       document: NOTIFICATION_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const notification = subscriptionData.data.notification;
+        const notification = subscriptionData?.data?.notification;
         refetch();
         refetchAnnouncements();
         refetchProfile();
@@ -258,7 +259,7 @@ function SideNav(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  console.log("user in side navv", user);
   const drawer = (
     <>
       <Box className={classes.imgBox}>
@@ -285,7 +286,7 @@ function SideNav(props) {
         data?.profile === null ||
         (data &&
           data?.profile?.firstName === null &&
-            data?.profile?.lastName === null) ? (
+          data?.profile?.lastName === null) ? (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
               {data &&

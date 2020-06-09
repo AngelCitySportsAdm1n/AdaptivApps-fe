@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
+import config from "../../config/auth_config";
 import moment from "moment";
 // Component imports
 import SimpleModal from "./SimpleModal";
@@ -171,7 +172,7 @@ export default function EventCard({ event, refetch }) {
     await handleClose();
     refetch();
   };
-
+  console.log("user", user);
   const body = (
     <>
       <Box className={classes.imgBox}>
@@ -241,22 +242,24 @@ export default function EventCard({ event, refetch }) {
                 {event.location}
               </Typography>
             </CardContent>
-            <Box className={classes.editDeleteBtn}>
-              <Button onClick={editEvent}>
-                <EditOutlinedIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
-              <Button onClick={handleOpen}>
-                <DeleteOutlineIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
-            </Box>
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <Box className={classes.editDeleteBtn}>
+                <Button onClick={editEvent}>
+                  <EditOutlinedIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+                <Button onClick={handleOpen}>
+                  <DeleteOutlineIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+              </Box>
+            ) : null}
           </Box>
         </CardActionArea>
         <CardActions className={classes.btnContainer}>

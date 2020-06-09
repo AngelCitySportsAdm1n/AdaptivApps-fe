@@ -7,11 +7,11 @@ export const GET_CHAT_ROOMS = gql`
       chatRooms {
         id
         participants {
+          id
           firstName
           lastName
           displayName
           email
-          id
         }
         chats(orderBy: createdAt_DESC) {
           id
@@ -33,6 +33,7 @@ export const GET_CHAT_ROOMS = gql`
         }
       }
       notifications {
+        id
         label
         profile {
           id
@@ -171,10 +172,12 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
       node {
         id
         participants {
+          id
           firstName
           lastName
         }
         chats {
+          id
           from {
             id
             email

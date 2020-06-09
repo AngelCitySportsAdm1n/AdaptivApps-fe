@@ -61,7 +61,9 @@ export default function Activity({ activity, activityData, value }) {
             {activityData?.event?.type === "In Person" ? (
               <td className={classes.tableData}>{activity.location}</td>
             ) : (
-              <td className={classes.tableData}>{activity.link}</td>
+              <a href={activity?.link}>
+                <td className={classes.tableData}>Join!</td>
+              </a>
             )}
             <td className={classes.time}>{activity?.startTime}</td>
             <td>

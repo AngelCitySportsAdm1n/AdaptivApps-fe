@@ -18,7 +18,7 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: '3rem'
+    marginLeft: "3rem",
   },
   headingBox: {
     margin: "6rem 0 2rem",
@@ -66,11 +66,10 @@ const useStyles = makeStyles({
   },
   ctaBox: {
     marginLeft: "9.9rem",
-    marginTop: '4.8rem',
-    '& p': {
-
-      fontSize: '1.8rem'
-    }
+    marginTop: "4.8rem",
+    "& p": {
+      fontSize: "1.8rem",
+    },
   },
   ctaBtn: {
     textTransform: "none",
@@ -111,9 +110,9 @@ export default function Settings() {
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
   });
- 
+
   const profile = data?.profile;
- 
+
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
@@ -160,7 +159,7 @@ export default function Settings() {
               <Typography>
                 {profile?.firstName} {profile?.lastName}
               </Typography>
-              <Typography>{profile?.displayName}</Typography>
+              <Typography>Bobert</Typography>
               <Typography>{profile?.phoneNumber}</Typography>
               <Typography>{profile?.email}</Typography>
               <Typography>
@@ -219,7 +218,7 @@ export default function Settings() {
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
             </Box>
           </Box>
-            {/* Display option will be a feature in  */}
+          {/* Display option will be a feature in  */}
           {/* <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />

@@ -88,3 +88,11 @@ export const GET_UPCOMING_EVENTS = gql`
     }
   }
 `;
+
+export const UPDATE_FACEBOOK_HANDLE = gql`
+  mutation updateFacebookHandle($email: String!, $facebook: String) {
+    updateProfile(where: { email: $email } data: { facebook: $facebook }) {
+      id
+    }
+  }
+`;

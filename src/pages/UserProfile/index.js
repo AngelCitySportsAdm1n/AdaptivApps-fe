@@ -21,12 +21,17 @@ import {
   faTwitterSquare,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+
 import { useQuery } from "react-apollo";
 
 import { GET_USER_PROFILE, GET_LOGGED_IN_USER } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
+
+const FacebookIcon = require("../../assets/images/facebook_icon.png");
+const TwitterIcon = require("../../assets/images/twitter_logo.png");
+const InstagramIcon = require("../../assets/images/instagram_logo.svg");
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +46,9 @@ const useStyles = makeStyles(theme => ({
     display: "none",
   },
   icons: {
-    fontSize: "3rem",
+    border: "1px solid blue",
+    maxWidth: "3rem",
+    maxHeight: "auto",
   },
   profileEventWrapper: {
     width: "100%",
@@ -147,8 +154,6 @@ const useStyles = makeStyles(theme => ({
   },
   middleProfileWrapper: {
     marginTop: "2rem",
-    // display: "flex",
-    // justifyContent: "center",
     height: "580px",
   },
   bioWrapper: {
@@ -336,15 +341,9 @@ export default function UserProfile() {
             </div>
             <div className={classes.socialHandles}>
               <div className={classes.socialIcons}>
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  className={classes.icons}
-                />
-                <FontAwesomeIcon
-                  icon={faTwitterSquare}
-                  className={classes.icons}
-                />
-                <FontAwesomeIcon icon={faInstagram} className={classes.icons} />
+                <img src={FacebookIcon} className={classes.icons} />
+                <img src={TwitterIcon} className={classes.icons} />
+                <img src={InstagramIcon} className={classes.icons} />
               </div>
             </div>
           </div>

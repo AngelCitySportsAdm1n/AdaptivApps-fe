@@ -23,7 +23,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useQuery } from "react-apollo";
 
-import { GET_USER_PROFILE, GET_LOGGED_IN_USER } from "./queries";
+import { GET_USER_PROFILE, GET_LOGGED_IN_USER, UPDATE_FACEBOOK_HANDLE, UPDATE_TWITTER_HANDLE, UPDATE_INSTAGRAM_HANDLE } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";

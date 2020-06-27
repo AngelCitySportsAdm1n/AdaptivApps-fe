@@ -93,6 +93,7 @@ export const UPDATE_FACEBOOK_HANDLE = gql`
   mutation updateFacebookHandle($email: String!, $facebook: String) {
     updateProfile(where: { email: $email } data: { facebook: $facebook }) {
       id
+      facebook
     }
   }
 `;
@@ -101,6 +102,7 @@ export const UPDATE_TWITTER_HANDLE = gql`
   mutation updateTwitterHandle($email: String!, $twitter: String) {
     updateProfile(where: { email: $email } data: { twitter: $twitter }) {
       id
+      twitter
     }
   }
 `;
@@ -109,6 +111,7 @@ export const UPDATE_INSTAGRAM_HANDLE = gql`
   mutation updateInstagramHandle($email: String!, $instagram: String) {
     updateProfile(where: { email: $email } data: { instagram: $instagram }) {
       id
+      instagram
     }
   }
 `;

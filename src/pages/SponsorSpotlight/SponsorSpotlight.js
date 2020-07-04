@@ -750,6 +750,7 @@ export default function SponsorSpotlight() {
                 className={classes.img}
                 alt="Momo Production & Event Rentals Logo"
                 src={Momo_Logo}
+                tabIndex="0"
               />
             {/* </a> */}
           </Grid>

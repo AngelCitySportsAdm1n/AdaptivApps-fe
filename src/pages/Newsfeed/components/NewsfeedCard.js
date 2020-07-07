@@ -274,12 +274,12 @@ const useStyles = makeStyles(theme => ({
   },
   likeBox: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
- commentsBox: {
-   display: "flex",
-   alignItems: "center"
- }
+  commentsBox: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 export default function NewsfeedCard({
@@ -305,7 +305,7 @@ export default function NewsfeedCard({
       },
     }
   );
-
+  console.log(post?.postedBy?.type);
   const {
     data: commentSub,
     loading: commentsLoading,
@@ -440,21 +440,28 @@ export default function NewsfeedCard({
               />
             </button>
           ) : (
-              <button
-                className={classes.btn}
-                aria-label={`visit the profile page of ${post.postedBy.firstName}`}
-                onClick={() => navigate(`/user/${post.postedBy.userName}`)}
-              >
-                <AccountCircleIcon
-                  fontSize={"large"}
-                  className={classes.avatarIcon}
-                />
-              </button>
-            )}
+            <button
+              className={classes.btn}
+              aria-label={`visit the profile page of ${post.postedBy.firstName}`}
+              onClick={() => navigate(`/user/${post.postedBy.userName}`)}
+            >
+              <AccountCircleIcon
+                fontSize={"large"}
+                className={classes.avatarIcon}
+              />
+            </button>
+          )}
           <Box className={classes.postInfoBox}>
-            <Typography gutterBottom>
-              {post.postedBy.firstName} {post.postedBy.lastName}
-            </Typography>
+            {post?.postedBy?.extProfile?.orgName !== null ? (
+              <Typography gutterBottom>
+                {post?.postedBy?.extProfile?.orgName}
+              </Typography>
+            ) : (
+              <Typography gutterBottom>
+                {post?.postedBy?.firstName} {post?.postedBy?.lastName}
+              </Typography>
+            )}
+
             <Typography>
               {moment(post.createdAt)
                 .startOf("hour")
@@ -463,29 +470,29 @@ export default function NewsfeedCard({
           </Box>
         </div>
         {user?.email === post?.postedBy?.email ||
-          (user && user[config.roleUrl].includes("Admin")) ? (
-            <div className={classes.editDeleteBtn}>
-              {/* {user && user[config.roleUrl].includes("Admin") ? (
+        (user && user[config.roleUrl].includes("Admin")) ? (
+          <div className={classes.editDeleteBtn}>
+            {/* {user && user[config.roleUrl].includes("Admin") ? (
               <Button className={classes.btn} onClick={pinPost}>
                 <FontAwesomeIcon icon={faThumbtack} className={classes.icons} />
               </Button>
             ) : null} */}
-              <Button
-                className={classes.btn}
-                onClick={() => setEditing(!editing)}
-                aria-label="edit this post"
-              >
-                <EditOutlinedIcon color="action" fontSize="large" />
-              </Button>
-              <Button
-                onClick={deletePost}
-                className={classes.btn}
-                aria-label="delete this post"
-              >
-                <DeleteOutlineIcon color="action" fontSize="large" />
-              </Button>
-            </div>
-          ) : null}
+            <Button
+              className={classes.btn}
+              onClick={() => setEditing(!editing)}
+              aria-label="edit this post"
+            >
+              <EditOutlinedIcon color="action" fontSize="large" />
+            </Button>
+            <Button
+              onClick={deletePost}
+              className={classes.btn}
+              aria-label="delete this post"
+            >
+              <DeleteOutlineIcon color="action" fontSize="large" />
+            </Button>
+          </div>
+        ) : null}
       </CardActions>
       <CardActions className={classes.postBody}>
         {post.imgUrl ? (
@@ -529,10 +536,10 @@ export default function NewsfeedCard({
               />
             </>
           ) : (
-              <p className={post.imgUrl ? classes.post : classes.soloPost}>
-                {post.body}
-              </p>
-            )}
+            <p className={post.imgUrl ? classes.post : classes.soloPost}>
+              {post.body}
+            </p>
+          )}
         </CardContent>
       </CardActions>
       {/* <CardContent className={classes.likesCommentsBox}>
@@ -547,7 +554,7 @@ export default function NewsfeedCard({
                 ? "1 Like"
                 : `${post.likes.length} Likes`
               : `Like`} */}
-        {/* </p>
+      {/* </p>
         <p className={classes.likesComments}>
           {comments.feedComments.length === 1
             ? "1 Comment"
@@ -555,7 +562,7 @@ export default function NewsfeedCard({
               ? `${comments.feedComments.length} Comments`
               : null}
         </p>
-      </CardContent> */} 
+      </CardContent> */}
       <Divider variant="middle" />
       <CardActions className={classes.cardActions}>
         <Box className={classes.likeBox}>
@@ -592,26 +599,25 @@ export default function NewsfeedCard({
           </p>
         </Box>
         <Box className={classes.commentsBox}>
-
-        <Button
-          color="primary"
-          className={classes.button}
-          onClick={toggleComment}
-        >
-          <FontAwesomeIcon
-            icon={faCommentAlt}
-            className={classes.commentIcon}
-          />
-          <Typography className={classes.cta}>Comment</Typography>
-        </Button>
-        <CircleIcon className={classes.circleIcon}/>
-        <p className={classes.likesComments}>
-          {comments.feedComments.length === 0
-            ? "0"
-            : comments.feedComments.length > 0
-            ? `${comments.feedComments.length}`
-            : null}
-        </p>
+          <Button
+            color="primary"
+            className={classes.button}
+            onClick={toggleComment}
+          >
+            <FontAwesomeIcon
+              icon={faCommentAlt}
+              className={classes.commentIcon}
+            />
+            <Typography className={classes.cta}>Comment</Typography>
+          </Button>
+          <CircleIcon className={classes.circleIcon} />
+          <p className={classes.likesComments}>
+            {comments.feedComments.length === 0
+              ? "0"
+              : comments.feedComments.length > 0
+              ? `${comments.feedComments.length}`
+              : null}
+          </p>
         </Box>
       </CardActions>
 
@@ -655,8 +661,8 @@ export default function NewsfeedCard({
               i < 3 && !toggleCommentOverflow
                 ? classes.flex
                 : toggleCommentOverflow
-                  ? classes.showAllComments
-                  : classes.commentOverflow
+                ? classes.showAllComments
+                : classes.commentOverflow
             }
           >
             {comment?.postedBy?.profilePicture ? (
@@ -667,17 +673,17 @@ export default function NewsfeedCard({
                 />
               </button>
             ) : (
-                <button
-                  className={classes.btn}
-                  aria-label={`visit the profile page of ${comment.postedBy.firstName}`}
-                  onClick={() => navigate(`/user/${comment.postedBy.userName}`)}
-                >
-                  <AccountCircleIcon
-                    fontSize={"large"}
-                    className={classes.avatarIcon}
-                  />
-                </button>
-              )}
+              <button
+                className={classes.btn}
+                aria-label={`visit the profile page of ${comment.postedBy.firstName}`}
+                onClick={() => navigate(`/user/${comment.postedBy.userName}`)}
+              >
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              </button>
+            )}
 
             <div className={classes.commentBox}>
               <div>
@@ -695,7 +701,7 @@ export default function NewsfeedCard({
 
                   <CircleIcon className={classes.circleIcon} />
                   <Typography className={classes.commentTime}>
-                    {moment(comment.createdAt)
+                    {moment(comment?.createdAt)
                       .startOf("hour")
                       .fromNow()}
                   </Typography>

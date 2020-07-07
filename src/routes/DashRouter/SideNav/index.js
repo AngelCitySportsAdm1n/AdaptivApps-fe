@@ -319,20 +319,29 @@ function SideNav(props) {
                 </div>
               </Tooltip>
             ) : (
-                  <NavLink to="/chats" className={classes.navLink}>
-                    <StyledBadge
-                      overlap="circle"
-                      badgeContent={roomNotifications?.length}
-                    >
-                      <ForumOutlinedIcon className={classes.navIcon} />
-                    </StyledBadge>
-                    <p>Chat</p>
-                  </NavLink>
-                )}
-            <NavLink to="/community" className={classes.navLink}>
-              <HomeIcon className={classes.navIcon} />
-              <p>Community Wall</p>
-            </NavLink>
+              <NavLink to="/chats" className={classes.navLink}>
+                <StyledBadge
+                  overlap="circle"
+                  badgeContent={roomNotifications?.length}
+                >
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </StyledBadge>
+                <p>Chat</p>
+              </NavLink>
+            )}
+            {data?.profile?.userName === null ? (
+              <Tooltip title="Please create a profile to have access to the Community Wall.">
+                <div className={classes.disabledNavLink}>
+                  <HomeIcon className={classes.navIcon} />
+                  <p>Community Wall</p>
+                </div>
+              </Tooltip>
+            ) : (
+              <NavLink to="/community" className={classes.navLink}>
+                <HomeIcon className={classes.navIcon} />
+                <p>Community Wall</p>
+              </NavLink>
+            )}
             <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>
@@ -347,9 +356,9 @@ function SideNav(props) {
                   <HomeIcon className={classes.navIcon} />
                   <p>Manage Events</p>
                 </NavLink>
-                <NavLink to="manageUsers" className={classes.navLink}>
+                <NavLink to="adminDashboard" className={classes.navLink}>
                   <GroupIcon className={classes.navIcon} />
-                  <p>Manage Users</p>
+                  <p>Admin Dashboard</p>
                 </NavLink>
               </>
             ) : null}

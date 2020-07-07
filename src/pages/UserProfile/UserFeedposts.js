@@ -40,7 +40,7 @@ export default function UserFeedposts({ user, userName }) {
 
   return (
     <div className={classes.root}>
-      <h3 className={classes.title}>My Community Posts</h3>
+      {data?.feedPosts.length > 0 ? <h3 className={classes.title}>My Community Posts</h3> : null}
       {data?.feedPosts?.map((post, index) => (
         <NewsfeedCard
           post={post}

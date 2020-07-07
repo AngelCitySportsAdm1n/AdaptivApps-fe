@@ -329,10 +329,19 @@ function SideNav(props) {
                 <p>Chat</p>
               </NavLink>
             )}
-            <NavLink to="/community" className={classes.navLink}>
-              <HomeIcon className={classes.navIcon} />
-              <p>Community Wall</p>
-            </NavLink>
+            {data?.profile?.userName === null ? (
+              <Tooltip title="Please create a profile to have access to the Community Wall.">
+                <div className={classes.disabledNavLink}>
+                  <HomeIcon className={classes.navIcon} />
+                  <p>Community Wall</p>
+                </div>
+              </Tooltip>
+            ) : (
+              <NavLink to="/community" className={classes.navLink}>
+                <HomeIcon className={classes.navIcon} />
+                <p>Community Wall</p>
+              </NavLink>
+            )}
             <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>

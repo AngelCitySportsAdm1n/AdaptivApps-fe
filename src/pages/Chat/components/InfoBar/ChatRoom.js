@@ -219,11 +219,18 @@ export default function ChatRoom({
 
   chatRoom.participants.map(participant => {
     if (
-      participant.email !== user.email &&
-      participant.firstName !== null &&
-      participant.lastName !== null &&
-      participant.firstName !== "" &&
-      participant.lastName !== ""
+      (participant.email !== user.email &&
+        participant.firstName !== null &&
+        participant.lastName !== null &&
+        participant.firstName !== "" &&
+        participant.lastName !== "") ||
+      (participant.email !== user.email &&
+        participant.firstName === null &&
+        participant?.extProfile?.orgName !== null &&
+        participant.lastName === null &&
+        participant?.extProfile?.orgName !== null &&
+        participant.firstName !== "" &&
+        participant.lastName !== "")
     ) {
       participants.push(participant);
     }
@@ -236,7 +243,9 @@ export default function ChatRoom({
     if (participants.length === 1 || index === participants.length - 1) {
       chattingUsername = participant.userName;
       chattingIcon = participant.profilePicture;
-      return `${participant.firstName} ${participant.lastName}`;
+      return participant.firstName
+        ? `${participant.firstName} ${participant.lastName}`
+        : `${participant?.extProfile?.orgName}`;
     } else {
       chattingIcon = participant.profilePicture;
       return `${participant.firstName} ${participant.lastName}, `;

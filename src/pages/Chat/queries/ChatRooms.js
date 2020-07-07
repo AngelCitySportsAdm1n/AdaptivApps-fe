@@ -17,6 +17,9 @@ export const GET_CHAT_ROOMS = gql`
           lastName
           profilePicture
           userName
+          extProfile {
+            orgName
+          }
         }
         chats {
           id
@@ -29,11 +32,10 @@ export const GET_CHAT_ROOMS = gql`
             lastName
           }
         }
-     }
+      }
+    }
   }
-}
 `;
-
 
 // Create a chat room
 export const CREATE_CHAT_ROOM = gql`
@@ -62,6 +64,9 @@ export const CREATE_CHAT_ROOM = gql`
           email
           firstName
           lastName
+          extProfile {
+            orgName
+          }
         }
       }
     }
@@ -70,9 +75,9 @@ export const CREATE_CHAT_ROOM = gql`
 
 // Delete users from a chat room
 export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
-  mutation deleteChatRoomParticipants( $id: ID!, $email: String! ) {
+  mutation deleteChatRoomParticipants($id: ID!, $email: String!) {
     updateChatRoom(
-      where: { id: $id } 
+      where: { id: $id }
       data: { participants: { disconnect: { email: $email } } }
     ) {
       id
@@ -87,6 +92,9 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
           id
           firstName
           lastName
+          extProfile {
+            orgName
+          }
         }
         message
         createdAt
@@ -97,11 +105,11 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
 
 // Add users to chat room
 export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
-  mutation addChatRoomParticipants( $id: ID!, $email: String! ) {
-    updateChatRoom( 
-      where: { id: $id } 
+  mutation addChatRoomParticipants($id: ID!, $email: String!) {
+    updateChatRoom(
+      where: { id: $id }
       data: { participants: { connect: { email: $email } } }
-      ) {
+    ) {
       id
       displayForSender
       displayForReceiver
@@ -120,6 +128,9 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
           email
           firstName
           lastName
+          extProfile {
+            orgName
+          }
         }
       }
     }
@@ -145,6 +156,9 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
             email
             firstName
             lastName
+            extProfile {
+              orgName
+            }
           }
           message
           createdAt
@@ -157,10 +171,7 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
 // Stop displaying a specific chatroom
 export const HIDE_CHATROOM_SENDER = gql`
   mutation hideChatroomSender($id: ID!) {
-    updateChatRoom( 
-      where: { id: $id } 
-      data: { displayForSender: false }
-      ) {
+    updateChatRoom(where: { id: $id }, data: { displayForSender: false }) {
       id
     }
   }
@@ -168,10 +179,7 @@ export const HIDE_CHATROOM_SENDER = gql`
 
 export const HIDE_CHATROOM_RECEIVER = gql`
   mutation hideChatroomReceiver($id: ID!) {
-    updateChatRoom( 
-      where: { id: $id } 
-      data: { displayForReceiver: false }
-      ) {
+    updateChatRoom(where: { id: $id }, data: { displayForReceiver: false }) {
       id
     }
   }

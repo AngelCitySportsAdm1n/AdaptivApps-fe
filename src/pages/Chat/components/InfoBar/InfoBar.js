@@ -21,7 +21,13 @@ import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import { makeStyles, Box, TextField, Divider, Tooltip } from "@material-ui/core";
+import {
+  makeStyles,
+  Box,
+  TextField,
+  Divider,
+  Tooltip,
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +42,6 @@ const useStyles = makeStyles(theme => ({
       height: "80%",
       justifyContent: "flex-end",
     },
-
   },
   title: {
     fontSize: "2.5rem",
@@ -206,12 +211,14 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
     const filter = chatRoomData?.profile?.chatRooms?.map(room => {
       let users = room.participants.map(user => {
         if (
-          user.firstName !== null &&
-          user.lastName !== null &&
+          user.userName !== null &&
           user.firstName !== "" &&
-          user.lastName !== ""
+          user.lastName !== "" &&
+          user.extProfile.orgName !== ""
         ) {
-          return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+          return user.firstName
+            ? `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`
+            : `${user.extProfile.orgName.toLowerCase()}`;
         }
       });
       return users.filter(user => {
@@ -291,22 +298,22 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
         <div className={classes.chatRoomDiv}>
           {results.length > 0
             ? results.map((chatRoom, id) => (
-              <div className={classes.chatroom} key={chatRoom.id}>
-                <ChatRoom
-                  key={chatRoom.id}
-                  chatRoom={chatRoom}
-                  chats={chatsData}
-                  chatRoomSub={chatRoomSub}
-                  user={user}
-                  notifications={notifications?.profile?.notifications}
-                  results={results}
-                  setResults={setResults}
-                />
-              </div>
-            ))
+                <div className={classes.chatroom} key={chatRoom.id}>
+                  <ChatRoom
+                    key={chatRoom.id}
+                    chatRoom={chatRoom}
+                    chats={chatsData}
+                    chatRoomSub={chatRoomSub}
+                    user={user}
+                    notifications={notifications?.profile?.notifications}
+                    results={results}
+                    setResults={setResults}
+                  />
+                </div>
+              ))
             : chatRoomData?.profile?.chatRooms === undefined
-              ? null
-              : chatRoomData &&
+            ? null
+            : chatRoomData &&
               chatRoomData?.profile.chatRooms?.map(chatRoom => (
                 <div className={classes.chatroom} key={chatRoom.id}>
                   <ChatRoom

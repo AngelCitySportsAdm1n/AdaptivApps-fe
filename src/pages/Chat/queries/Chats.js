@@ -2,11 +2,7 @@ import gql from "graphql-tag";
 
 // Send a chat
 export const SEND_CHAT = gql`
-  mutation sendChat(
-    $id: ID!
-    $email: String!
-    $message: String!
-  ) {
+  mutation sendChat($id: ID!, $email: String!, $message: String!) {
     createChat(
       data: {
         from: { connect: { email: $email } }
@@ -19,6 +15,9 @@ export const SEND_CHAT = gql`
         id
         firstName
         lastName
+        extProfile {
+          orgName
+        }
       }
       message
       createdAt
@@ -34,17 +33,20 @@ export const UPDATE_CHAT = gql`
   mutation updateChat($id: ID!, $message: String!) {
     updateChat(where: { id: $id }, data: { message: $message }) {
       id
-        message
-        createdAt
-        room {
-          id
+      message
+      createdAt
+      room {
+        id
+      }
+      from {
+        firstName
+        lastName
+        id
+        email
+        extProfile {
+          orgName
         }
-        from {
-          firstName
-          lastName
-          id
-          email
-        }
+      }
     }
   }
 `;
@@ -67,6 +69,9 @@ export const GET_RECIPIENTS = gql`
       lastName
       email
       userName
+      extProfile {
+        orgName
+      }
     }
   }
 `;
@@ -88,6 +93,9 @@ export const CHAT_SUBSCRIPTION = gql`
           lastName
           id
           email
+          extProfile {
+            orgName
+          }
         }
       }
     }
@@ -97,10 +105,7 @@ export const CHAT_SUBSCRIPTION = gql`
 // Stop displaying a specific chatroom
 export const SHOW_CHATROOM_SENDER = gql`
   mutation showChatroomSender($id: ID!) {
-    updateChatRoom( 
-      where: { id: $id } 
-      data: { displayForSender: true }
-      ) {
+    updateChatRoom(where: { id: $id }, data: { displayForSender: true }) {
       id
     }
   }
@@ -108,10 +113,7 @@ export const SHOW_CHATROOM_SENDER = gql`
 
 export const SHOW_CHATROOM_RECEIVER = gql`
   mutation showChatroomReceiver($id: ID!) {
-    updateChatRoom( 
-      where: { id: $id } 
-      data: { displayForReceiver: true }
-      ) {
+    updateChatRoom(where: { id: $id }, data: { displayForReceiver: true }) {
       id
     }
   }
@@ -119,12 +121,10 @@ export const SHOW_CHATROOM_RECEIVER = gql`
 
 export const SHOW_CHATROOM_All = gql`
   mutation showChatroomAll($id: ID!) {
-    updateChatRoom( 
-      where: { id: $id } 
-      data: { 
-        displayForReceiver: true
-        displayForSender: true
-      }) {
+    updateChatRoom(
+      where: { id: $id }
+      data: { displayForReceiver: true, displayForSender: true }
+    ) {
       id
     }
   }

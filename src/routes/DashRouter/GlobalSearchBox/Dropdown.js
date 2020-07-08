@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from "react";
 import NavLink from "../SideNav/NavLink";
-// Import stylings
-import { makeStyles } from "@material-ui/core";
+// Material-UI imports
+import { makeStyles, TextField, InputAdornment } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles({
   search: {
     width: "100%",
     height: "40px",
     padding: "0 10px",
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
     border: "1px solid rgb(223, 223, 223)",
-    fontSize: "1.6rem",
+    "& .MuiInputBase-root": {
+      fontSize: "1.4rem",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottom: "none",
+    },
+  },
+  searchIcon: {
+    color: "#808080",
+    fontSize: "2.5rem",
   },
   item: {
     display: "inline-block",
@@ -72,26 +85,34 @@ export default function Dropdown(props) {
 
   return (
     <div>
-      <input
+      <TextField
         className={classes.search}
         placeholder="Enter user first and last name here..."
         onChange={handleChange}
+        type="search"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon className={classes.searchIcon} />
+            </InputAdornment>
+          ),
+        }}
       />
       <div className={classes.searchResults}>
         {tempList !== ""
           ? tempList.map(item => (
-            <NavLink to={`/user/${item.username}`} key={item.id}>
-              <button
-                aria-label={`Click to visit ${item.name}'s profile`}
-                type="button"
-                key={item.id}
-                className={classes.item}
-                onClick={() => handleSelect(item)}
-              >
-                {item.name}
-              </button>
-            </NavLink>
-          ))
+              <NavLink to={`/user/${item.username}`} key={item.id}>
+                <button
+                  aria-label={`Click to visit ${item.name}'s profile`}
+                  type="button"
+                  key={item.id}
+                  className={classes.item}
+                  onClick={() => handleSelect(item)}
+                >
+                  {item.name}
+                </button>
+              </NavLink>
+            ))
           : null}
         {tempList.length < 1 && isSearching ? (
           <div className={`${classes.item} ${classes.empty}`}>No results</div>

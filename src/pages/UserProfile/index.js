@@ -185,11 +185,11 @@ const useStyles = makeStyles(theme => ({
   },
   middleProfileWrapper: {
     marginTop: "2rem",
-    height: "300px",
+    height: "100%",
   },
   bioWrapper: {
     margin: "0 auto",
-    height: "50%",
+    height: "100%",
     width: "75%",
     maxWidth: "80rem",
     "& p": {
@@ -406,9 +406,7 @@ export default function UserProfile() {
           <div className={classes.middleProfileWrapper}>
             <div className={classes.bioWrapper}>
               <h1>My Story.</h1>
-              <div>
-                <p>{userProfile?.profile?.bio}</p>
-              </div>
+              <p>{userProfile?.profile?.bio}</p>
             </div>
             {/* {userProfile?.profile?.type === "Individual" ? (
               <div className={classes.infoWrapper}>

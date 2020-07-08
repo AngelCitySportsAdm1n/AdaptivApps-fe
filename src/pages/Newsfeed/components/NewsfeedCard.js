@@ -83,14 +83,13 @@ const useStyles = makeStyles(theme => ({
   postBody: {
     display: "flex",
     flexDirection: "column",
-    //flexWrap: "wrap",
     height: "50%",
     alignItems: "flex-start",
+    padding: "0",
   },
   img: {
-    margin: "auto",
-    maxWidth: "80%",
-    borderRadius: "5px",
+    margin: "0",
+    maxWidth: "100%",
     objectFit: "contain",
   },
   post: {
@@ -566,7 +565,7 @@ export default function NewsfeedCard({
             color="primary"
             className={classes.button}
             onClick={toggleLiked}
-            aria-label='like this post'
+            aria-label="like this post"
           >
             {hasLiked() ? (
               <>

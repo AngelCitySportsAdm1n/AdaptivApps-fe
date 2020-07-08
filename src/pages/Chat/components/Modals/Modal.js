@@ -152,7 +152,7 @@ function RecipientModal({ user, setOpen, allChatrooms, setNewRoom }) {
   const availableToChat = [];
   allUsers &&
     allUsers.profiles.map(person => {
-      console.log("person", person);
+      // console.log("person", person);
       let unique = currentChatRooms.find(item => item.email === person.email);
       if (
         unique === undefined &&

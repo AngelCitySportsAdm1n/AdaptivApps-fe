@@ -305,7 +305,7 @@ export default function NewsfeedCard({
       },
     }
   );
-  console.log(post?.postedBy?.type);
+ 
   const {
     data: commentSub,
     loading: commentsLoading,

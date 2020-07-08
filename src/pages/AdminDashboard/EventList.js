@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 export default function EventList() {
   const classes = useStyles();
   const { data, error, loading, refetch } = useQuery(GET_EVENTS_ATTENDEES);
-  console.log("data", data?.events?.title);
+  // console.log("data", data?.events?.title);
   return (
     <div className={classes.root}>
       {data?.events?.map(event => (

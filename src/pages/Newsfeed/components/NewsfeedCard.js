@@ -566,6 +566,7 @@ export default function NewsfeedCard({
             color="primary"
             className={classes.button}
             onClick={toggleLiked}
+            aria-label='like this post'
           >
             {hasLiked() ? (
               <>
@@ -599,6 +600,7 @@ export default function NewsfeedCard({
             color="primary"
             className={classes.button}
             onClick={toggleComment}
+            aria-label="comment on this post"
           >
             <FontAwesomeIcon
               icon={faCommentAlt}

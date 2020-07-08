@@ -14,20 +14,30 @@ export const GET_NEWSFEED_POSTS = gql`
         body
         postedBy {
           id
+          type
           userName
           firstName
           lastName
           email
           profilePicture
+          extProfile{
+            id
+            orgName
+          }
         }
       }
       postedBy {
         id
+        type
         userName
         firstName
         lastName
         email
         profilePicture
+        extProfile{
+          id
+          orgName
+        }
       }
       likes {
         id

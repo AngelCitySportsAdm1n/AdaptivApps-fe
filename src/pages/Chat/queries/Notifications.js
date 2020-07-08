@@ -1,12 +1,16 @@
 import gql from "graphql-tag";
 
 export const GET_NOTIFICATIONS = gql`
-    query getNotifications($email: String!) {
-      profile(where: {email: $email}) {
+  query getNotifications($email: String!) {
+    profile(where: { email: $email }) {
       id
       email
       firstName
       lastName
+      extProfile {
+        id
+        orgName
+      }
       notifications {
         id
         label
@@ -20,18 +24,12 @@ export const GET_NOTIFICATIONS = gql`
 
 export const CREATE_CHAT_NOTIFICATION = gql`
   mutation createChatRoomNotification($email: String!, $id: ID!) {
-    createNotification(data: {
-      profile: {
-        connect: {
-          email: $email
-        }
+    createNotification(
+      data: {
+        profile: { connect: { email: $email } }
+        chatroom: { connect: { id: $id } }
       }
-      chatroom: {
-        connect: {
-          id: $id
-        }
-      }
-    }) {
+    ) {
       id
       chatroom {
         id
@@ -44,15 +42,15 @@ export const CREATE_CHAT_NOTIFICATION = gql`
       }
     }
   }
-`
+`;
 
 export const DELETE_NOTIFICATION = gql`
-  mutation deleteNotification( $id: ID! ) {
-    deleteNotification( where: { id: $id } ) {
+  mutation deleteNotification($id: ID!) {
+    deleteNotification(where: { id: $id }) {
       id
     }
-  } 
-`
+  }
+`;
 
 export const NOTIFICATION_SUBSCRIPTION = gql`
   subscription {
@@ -78,18 +76,21 @@ export const NOTIFICATION_SUBSCRIPTION = gql`
           email
           firstName
           lastName
+          extProfile {
+            id
+            orgName
+          }
         }
       }
     }
   }
 `;
 
-
 export const GET_ALL_NOTIFICATIONS = gql`
-    query {
-      notifications {
-        id
-      }
+  query {
+    notifications {
+      id
+    }
   }
 `;
 

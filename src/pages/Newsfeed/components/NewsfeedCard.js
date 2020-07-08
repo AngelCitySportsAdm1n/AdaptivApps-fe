@@ -305,7 +305,7 @@ export default function NewsfeedCard({
       },
     }
   );
- 
+
   const {
     data: commentSub,
     loading: commentsLoading,
@@ -462,11 +462,7 @@ export default function NewsfeedCard({
               </Typography>
             )}
 
-            <Typography>
-              {moment(post.createdAt)
-                .startOf("hour")
-                .fromNow()}
-            </Typography>
+            <Typography>{moment(post.createdAt).fromNow()}</Typography>
           </Box>
         </div>
         {user?.email === post?.postedBy?.email ||
@@ -701,9 +697,7 @@ export default function NewsfeedCard({
 
                   <CircleIcon className={classes.circleIcon} />
                   <Typography className={classes.commentTime}>
-                    {moment(comment?.createdAt)
-                      .startOf("hour")
-                      .fromNow()}
+                    {moment(comment?.createdAt).fromNow()}
                   </Typography>
                 </Box>
                 <Typography className={classes.commentContent} gutterBottom>

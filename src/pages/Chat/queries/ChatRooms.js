@@ -18,6 +18,7 @@ export const GET_CHAT_ROOMS = gql`
           profilePicture
           userName
           extProfile {
+            id
             orgName
           }
         }
@@ -65,6 +66,7 @@ export const CREATE_CHAT_ROOM = gql`
           firstName
           lastName
           extProfile {
+            id
             orgName
           }
         }
@@ -93,6 +95,7 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
           firstName
           lastName
           extProfile {
+            id
             orgName
           }
         }
@@ -129,6 +132,7 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
           firstName
           lastName
           extProfile {
+            id
             orgName
           }
         }
@@ -157,6 +161,7 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
             firstName
             lastName
             extProfile {
+              id
               orgName
             }
           }

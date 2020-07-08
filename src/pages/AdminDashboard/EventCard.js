@@ -42,8 +42,8 @@ export default function EventCard(event) {
   const formattedTime = moment(event?.event?.startTime, "HH:mm").format(
     "h:mm A"
   );
-  console.log("title", event?.event?.title);
-  console.log("formattedTime", event.attendees);
+  // console.log("title", event?.event?.title);
+  // console.log("formattedTime", event.attendees);
   return (
     <>
       <div className={classes.card}>

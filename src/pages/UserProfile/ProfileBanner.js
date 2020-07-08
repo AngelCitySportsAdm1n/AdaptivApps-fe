@@ -22,7 +22,11 @@ const useStyles = makeStyles(theme => ({
   input: {
     display: "none",
   },
-
+  profileBannerChif: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
   profileBanner: {
     width: "100%",
     height: "100%",
@@ -43,6 +47,7 @@ export default function ProfileBanner({ profileBanner, userName }) {
   const usersProfileBanner = data?.profile?.profileBanner;
 
   useEffect(() => {
+    window.chifPlayer.streamFiles();
     if (profileBanner && profileBanner !== null)
       updateProfileBanner({
         variables: {
@@ -55,17 +60,31 @@ export default function ProfileBanner({ profileBanner, userName }) {
 
   return (
     <>
-      <img
-        className={classes.profileBanner}
-        src={
-          usersProfileBanner === null ||
-          usersProfileBanner === undefined ||
-          usersProfileBanner === ""
-            ? BannerDefault
-            : usersProfileBanner
-        }
-        alt="Profile Banner"
-      />
+      {usersProfileBanner?.includes(".jpeg") ||
+      usersProfileBanner?.includes(".png") ||
+      usersProfileBanner?.includes(".svg") ||
+      usersProfileBanner === null ||
+      usersProfileBanner === undefined ||
+      usersProfileBanner === "" ||
+      usersProfileBanner === " " ? (
+        <img
+          className={classes.profileBanner}
+          src={
+            usersProfileBanner === null ||
+            usersProfileBanner === undefined ||
+            usersProfileBanner === ""
+              ? BannerDefault
+              : usersProfileBanner
+          }
+          alt="Profile Banner"
+        />
+      ) : (
+        <chear
+          className={classes.profileBannerChif}
+          src={usersProfileBanner}
+          alt="Profile Banner"
+        />
+      )}
     </>
   );
 }

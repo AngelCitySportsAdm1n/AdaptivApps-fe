@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
   },
   topProfileWrapper: {
-    maxHeight: "25rem"
+    maxHeight: "25rem",
   },
   bannerWrapper: {
     width: "100%",
@@ -215,7 +215,6 @@ export default function UserProfile() {
   const classes = useStyles();
   const { userName } = useParams();
   const { user } = useAuth0();
-  const [profilePicture, setProfilePicture] = useState(null);
   const [profileBanner, setProfileBanner] = useState(null);
   const [profileOwner, setProfileOwner] = useState(false);
 
@@ -224,6 +223,9 @@ export default function UserProfile() {
     {
       variables: { userName: userName },
     }
+  );
+  const [profilePicture, setProfilePicture] = useState(
+    userProfile?.profile?.profilePicture || null
   );
   const { data: loggedInUser } = useQuery(GET_LOGGED_IN_USER, {
     variables: { email: user.email },
@@ -323,7 +325,7 @@ export default function UserProfile() {
                   </label>
                   <input
                     className={classes.input}
-                    accept="image/*"
+                    accept="audio/*, video/*, image/*, .chif, application/JSON"
                     type="file"
                     onChange={uploadProfileBanner}
                     id="uploadBanner"

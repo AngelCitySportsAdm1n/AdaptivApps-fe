@@ -16,6 +16,7 @@ export const SEND_CHAT = gql`
         firstName
         lastName
         extProfile {
+          id
           orgName
         }
       }
@@ -44,6 +45,7 @@ export const UPDATE_CHAT = gql`
         id
         email
         extProfile {
+          id
           orgName
         }
       }
@@ -70,6 +72,7 @@ export const GET_RECIPIENTS = gql`
       email
       userName
       extProfile {
+        id
         orgName
       }
     }
@@ -94,6 +97,7 @@ export const CHAT_SUBSCRIPTION = gql`
           id
           email
           extProfile {
+            id
             orgName
           }
         }

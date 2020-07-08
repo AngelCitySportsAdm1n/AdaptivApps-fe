@@ -97,7 +97,7 @@ const FAQ = () => {
             <li>
               <p className={classes.p1}>
                 Visit the <strong>Settings</strong> tab to create your profile.
-                Be sure to enter a username to personalize your profile page.
+                Be sure to enter a username to personalize your profile page. <strong>Completing this step will unlock the Chat and Community Wall features.</strong>
               </p>
             </li>
             <li>

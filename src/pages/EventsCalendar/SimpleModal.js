@@ -202,7 +202,7 @@ export default function SimpleModal({ event, registerEvent }) {
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        View Details
+        Add to My Events
       </Button>
       <Modal
         open={open}

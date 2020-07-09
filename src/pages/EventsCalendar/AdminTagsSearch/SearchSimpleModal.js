@@ -131,8 +131,8 @@ export default function SearchSimpleModal({ event, registerEvent }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -155,10 +155,18 @@ export default function SearchSimpleModal({ event, registerEvent }) {
       <Box className={classes.modalBottom}>
         <p className={classes.modalP}>Add to "My Events?"</p>
         <Box>
-          <Button aria-label={`Sign up for ${event.title}`} className={classes.modalBtn1} onClick={registerEvent}>
+          <Button
+            aria-label={`Sign up for ${event.title}`}
+            className={classes.modalBtn1}
+            onClick={registerEvent}
+          >
             Add
           </Button>
-          <Button aria-label={`close this modal`} className={classes.modalBtn2} onClick={handleClose}>
+          <Button
+            aria-label={`close this modal`}
+            className={classes.modalBtn2}
+            onClick={handleClose}
+          >
             Close
           </Button>
         </Box>
@@ -169,7 +177,7 @@ export default function SearchSimpleModal({ event, registerEvent }) {
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        View Details
+        Add to My Events
       </Button>
       <Modal
         open={open}

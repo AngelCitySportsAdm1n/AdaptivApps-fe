@@ -209,7 +209,7 @@ export default function CreatePost({ user, profile }) {
               <img
                 src={postImage}
                 alt="image for this post"
-                className={classes.chifImg}
+                className={classes.img}
               />
             )}
             <Tooltip title="Remove Image">

@@ -332,7 +332,7 @@ export default function NewsfeedCard({
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
   const [updatePost] = useMutation(UPDATE_NEWSFEED_POST);
   const [deleteComment] = useMutation(DELETE_COMMENT);
-  const postImage = post?.imgUrl;
+  const postImageData = post?.imgUrl;
   const toggleComment = () => {
     setCommenting(!commenting);
   };
@@ -433,8 +433,9 @@ export default function NewsfeedCard({
     },
   };
   useEffect(() => {
-    if (postImage && postImage) window.chifPlayer.streamFiles();
-  }, [postImage]);
+    if (postImageData && postImageData) window.chifPlayer.streamFiles();
+    refetchPosts();
+  }, [postImageData]);
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
@@ -506,14 +507,14 @@ export default function NewsfeedCard({
         ) : null}
       </CardActions>
       <CardActions className={classes.postBody}>
-        {postImage && postImage.includes(".chif") ? (
-          <chear src={postImage} className={classes.chifImg} />
+        {postImageData && postImageData.includes(".chif") ? (
+          <chear src={postImageData} className={classes.chifImg} />
         ) : (
           <CardMedia
             component="img"
             className={classes.img}
             alt="description of post image"
-            image={postImage}
+            image={postImageData}
           />
         )}
         <CardContent>

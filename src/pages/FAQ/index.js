@@ -1,5 +1,6 @@
 // React imports
 import React from "react";
+import { Link } from "@reach/router"
 // Material-UI imports
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
@@ -25,7 +26,11 @@ const useStyles = makeStyles(theme => ({
     },
     "& a": {
       fontSize: "1.8rem",
-      fontWeight: "bold"
+      fontWeight: "bold",
+    },
+    "& i": {
+      fontStyle: "italic",
+      fontSize: "1.8rem",
     },
   },
   headingBox: {
@@ -37,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "3rem",
     marginBottom: "5rem",
   },
-  h4: {
+  h3: {
     fontSize: "2.5rem",
     color: "rgb(41, 98, 255)",
     fontWeight: "normal",
@@ -80,24 +85,34 @@ const FAQ = () => {
         </Typography>
       </Box>
       <div className={classes.body}>
+        <h3 className={classes.h3}>Video Tutorial & Site Walkthrough!</h3>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/EhAflRhxYsM"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+
         <div className={classes.group}>
-          <h3 className={classes.h4}>How do the Virtual Games work?</h3>
+          <h3 className={classes.h3}>How do the Virtual Games work?</h3>
           <p>
-            All activities and special events for the 2020 Angel City Virtual
-            Games presented by The Hartford will be accessible through this
-            website. All activities will be hosted via Zoom or a similar
-            platform. You can view and register for individual events in the{" "}
-            <strong>Events Calendar</strong> tab.
+          All activities and special events for the 2020 <i>Angel City Virtual Games presented by The Hartford</i> will be accessible through this website. All activities will be hosted via Zoom or a similar platform. You can view and register for individual events in the <strong>Events Calendar</strong> tab.
           </p>
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>How do I use this website?</h3>
+          <h3 className={classes.h3}>How do I use this website?</h3>
           <p>Great question, you can get started in five easy steps!</p>
           <ol>
             <li>
               <p className={classes.p1}>
                 Visit the <strong>Settings</strong> tab to create your profile.
-                Be sure to enter a username to personalize your profile page.
+                Be sure to enter a username to personalize your profile page.{" "}
+                <strong>
+                  Completing this step will unlock the Chat and Community Wall
+                  features.
+                </strong>
               </p>
             </li>
             <li>
@@ -133,32 +148,29 @@ const FAQ = () => {
               </p>
             </li>
           </ol>
-          {/* <p>
-            Check out the video tutorial below to learn everything you need to
-            know about this action-packed week!
-          </p>
-          <iframe
-            className={classes.vid}
-            src="https://www.youtube.com/embed/w77zPAtVTuI"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullscreen
-          /> */}
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>
+          <h3 className={classes.h3}>
             Do I have to register for each activity separately?
           </h3>
           <p>
-            Once you've completed <a href="https://www.angelcitygames.org/Virtual/Event-Details/Registration" target="_blank">registration</a> for the 2020 Angel City Virtual
-            Games presented by the Hartford you are set to attend any and all
-            activities throughout all 3 weeks. If you would like for the events
-            you are interested to be displayed in the <strong>My Events</strong>{" "}
-            tab you will need to register for that specific event.
+            Once you've completed{" "}
+            <a
+              href="https://www.angelcitygames.org/Virtual/Event-Details/Registration"
+              target="_blank"
+              aria-label="visit Angel City Games registration"
+            >
+              registration
+            </a>{" "}
+            for the 2020 <i>Angel City Virtual Games presented by The Hartford</i> you
+            are set to attend any and all activities throughout all 3 weeks. If
+            you want the events you are interested in to be displayed in
+            the <strong>My Events</strong> tab you will need to register for
+            that specific event.
           </p>
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>When does registration close?</h3>
+          <h3 className={classes.h3}>When does registration close?</h3>
           <p>
             Registration will remain open throughout the duration of each
             individual event. You can access the links to all activities in the{" "}
@@ -166,7 +178,7 @@ const FAQ = () => {
           </p>
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>
+          <h3 className={classes.h3}>
             How do I find an event after I sign up for it? How can I participate
             in an event?
           </h3>
@@ -174,19 +186,18 @@ const FAQ = () => {
             After using <strong>Events Calendar</strong> to select and{" "}
             <strong>add</strong> your events, visit the{" "}
             <strong>My Events</strong> tab. You should find all events
-            previously selected in this tab. This is your personally chosen
-            Angel City Virtual Games presented by The Hartford experience! On
+            previously selected in this tab. This is your personally chosen <i>Angel City Virtual Games presented by The Hartford</i> experience! On
             the day of your event, visit this tab to find participant
             information to access your challenge, clinic, special event, and
             more!
           </p>
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>
+          <h3 className={classes.h3}>
             How can I connect with other athletes, coaches, and the community?
           </h3>
           <p>
-            Using the chat feature, you can find friends, discuss the latest
+            Using the <strong>Chat</strong> feature, you can find friends, discuss the latest
             clinic, connect with mentors, and more! Simply fill out your
             profile, then access the <strong>Chat</strong> tab to find other
             users with the same interests, start a group chat with the most
@@ -195,6 +206,16 @@ const FAQ = () => {
               {" "}
               This feature is only available to those 18 years or older.
             </strong>
+          </p>
+        </div>
+        <div className={classes.group}>
+          <h3 className={classes.h3}>
+            Is this website accessible?
+          </h3>
+          <p>
+          Yes!. You can select the small figure icon in the lower right hand of your screen to adjust font size, colors, screen reading, etc. For more information, you can view our <Link to="/accessibility" aria-label="visit the Accessibility Statement" className={classes.a11yLink}>
+            Accessibility Statement
+          </Link>. Many thanks to the team at <a href="https://adaptivapps.org/" target="_blank" aria-label="visit AdaptivApps's website">AdaptivApps</a> and <a href="https://www.c-hear.com/" target="_blank" aria-label="visit C-Hear's website">C-Hear</a>! They have been hard at work to ensure the accessibility of this platform.
           </p>
         </div>
       </div>

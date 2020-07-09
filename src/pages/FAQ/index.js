@@ -1,5 +1,6 @@
 // React imports
 import React from "react";
+import { Link } from "@reach/router"
 // Material-UI imports
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
@@ -93,11 +94,7 @@ const FAQ = () => {
         <div className={classes.group}>
           <h3 className={classes.h3}>How do the Virtual Games work?</h3>
           <p>
-            All activities and special events for the 2020 Angel City Virtual
-            Games presented by The Hartford will be accessible through this
-            website. All activities will be hosted via Zoom or a similar
-            platform. You can view and register for individual events in the{" "}
-            <strong>Events Calendar</strong> tab.
+          All activities and special events for the 2020 Angel City Virtual Games presented by The Hartford will be accessible through this website. All activities will be hosted via Zoom or a similar platform. You can view and register for individual events in the <strong>Events Calendar</strong> tab.
           </p>
         </div>
         <div className={classes.group}>
@@ -157,6 +154,7 @@ const FAQ = () => {
             <a
               href="https://www.angelcitygames.org/Virtual/Event-Details/Registration"
               target="_blank"
+              aria-label="visit Angel City Games registration"
             >
               registration
             </a>{" "}
@@ -205,6 +203,16 @@ const FAQ = () => {
               {" "}
               This feature is only available to those 18 years or older.
             </strong>
+          </p>
+        </div>
+        <div className={classes.group}>
+          <h3 className={classes.h3}>
+            Is this website accessible?
+          </h3>
+          <p>
+          Yes!. You can select the small figure icon in the lower right hand of your screen to adjust font size, colors, screen reading, etc.. For more information, you can view our <Link to="/accessibility" aria-label="visit the Accessibility Statement" className={classes.a11yLink}>
+            Accessibility Statement
+          </Link>. Many thanks to the team at <a href="https://adaptivapps.org/" target="_blank" aria-label="visit AdaptivApps's website">AdaptivApps</a> and <a href="https://www.c-hear.com/" target="_blank" aria-label="visit C-Hear's website">C-Hear</a>! They have been hard at work to ensure the accessibility of this platform.
           </p>
         </div>
       </div>

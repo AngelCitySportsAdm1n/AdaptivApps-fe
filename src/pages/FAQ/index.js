@@ -28,6 +28,10 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.8rem",
       fontWeight: "bold",
     },
+    "& i": {
+      fontStyle: "italic",
+      fontSize: "1.8rem",
+    },
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -94,7 +98,7 @@ const FAQ = () => {
         <div className={classes.group}>
           <h3 className={classes.h3}>How do the Virtual Games work?</h3>
           <p>
-          All activities and special events for the 2020 Angel City Virtual Games presented by The Hartford will be accessible through this website. All activities will be hosted via Zoom or a similar platform. You can view and register for individual events in the <strong>Events Calendar</strong> tab.
+          All activities and special events for the 2020 <i>Angel City Virtual Games presented by The Hartford</i> will be accessible through this website. All activities will be hosted via Zoom or a similar platform. You can view and register for individual events in the <strong>Events Calendar</strong> tab.
           </p>
         </div>
         <div className={classes.group}>
@@ -158,9 +162,9 @@ const FAQ = () => {
             >
               registration
             </a>{" "}
-            for the 2020 Angel City Virtual Games presented by the Hartford you
+            for the 2020 <i>Angel City Virtual Games presented by The Hartford</i> you
             are set to attend any and all activities throughout all 3 weeks. If
-            you would like for the events you are interested to be displayed in
+            you want the events you are interested in to be displayed in
             the <strong>My Events</strong> tab you will need to register for
             that specific event.
           </p>
@@ -182,8 +186,7 @@ const FAQ = () => {
             After using <strong>Events Calendar</strong> to select and{" "}
             <strong>add</strong> your events, visit the{" "}
             <strong>My Events</strong> tab. You should find all events
-            previously selected in this tab. This is your personally chosen
-            Angel City Virtual Games presented by The Hartford experience! On
+            previously selected in this tab. This is your personally chosen <i>Angel City Virtual Games presented by The Hartford</i> experience! On
             the day of your event, visit this tab to find participant
             information to access your challenge, clinic, special event, and
             more!
@@ -194,7 +197,7 @@ const FAQ = () => {
             How can I connect with other athletes, coaches, and the community?
           </h3>
           <p>
-            Using the chat feature, you can find friends, discuss the latest
+            Using the <strong>Chat</strong> feature, you can find friends, discuss the latest
             clinic, connect with mentors, and more! Simply fill out your
             profile, then access the <strong>Chat</strong> tab to find other
             users with the same interests, start a group chat with the most
@@ -210,7 +213,7 @@ const FAQ = () => {
             Is this website accessible?
           </h3>
           <p>
-          Yes!. You can select the small figure icon in the lower right hand of your screen to adjust font size, colors, screen reading, etc.. For more information, you can view our <Link to="/accessibility" aria-label="visit the Accessibility Statement" className={classes.a11yLink}>
+          Yes!. You can select the small figure icon in the lower right hand of your screen to adjust font size, colors, screen reading, etc. For more information, you can view our <Link to="/accessibility" aria-label="visit the Accessibility Statement" className={classes.a11yLink}>
             Accessibility Statement
           </Link>. Many thanks to the team at <a href="https://adaptivapps.org/" target="_blank" aria-label="visit AdaptivApps's website">AdaptivApps</a> and <a href="https://www.c-hear.com/" target="_blank" aria-label="visit C-Hear's website">C-Hear</a>! They have been hard at work to ensure the accessibility of this platform.
           </p>

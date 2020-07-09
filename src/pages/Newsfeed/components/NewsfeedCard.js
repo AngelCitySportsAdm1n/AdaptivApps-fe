@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Moment import
 import moment from "moment";
 import config from "../../../config/auth_config";
@@ -91,6 +91,20 @@ const useStyles = makeStyles(theme => ({
     margin: "0",
     maxWidth: "100%",
     objectFit: "contain",
+    "& .chifImg": {
+      borderRadius: "50%",
+      width: "17rem",
+      height: "17rem",
+      objectFit: "cover",
+      background: "#282C4E",
+      background: "white",
+    },
+    "& .player-tray": {
+      overflow: "visible",
+    },
+    "& .transcription": {
+      overflow: "visible",
+    },
   },
   post: {
     fontSize: "2.75rem",
@@ -318,7 +332,7 @@ export default function NewsfeedCard({
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
   const [updatePost] = useMutation(UPDATE_NEWSFEED_POST);
   const [deleteComment] = useMutation(DELETE_COMMENT);
-
+  const postImage = post?.imgUrl;
   const toggleComment = () => {
     setCommenting(!commenting);
   };
@@ -413,17 +427,19 @@ export default function NewsfeedCard({
     refetchPosts();
   };
 
-  if (loading) return <CircularProgress />;
-  if (error) return `Error! ${error.message}`;
-
-  !commentsLoading && refetch();
-
   const props = {
     inputProps: {
       "aria-label": "Type a comment here to this post.",
     },
   };
+  useEffect(() => {
+    if (postImage && postImage) window.chifPlayer.streamFiles();
+  }, [postImage]);
 
+  if (loading) return <CircularProgress />;
+  if (error) return `Error! ${error.message}`;
+
+  !commentsLoading && refetch();
   return !pinnedPost || (pinnedPost && pinnedPost.id !== post.id) ? (
     <Card className={classes.root}>
       <CardActions className={classes.postHeader}>
@@ -490,14 +506,16 @@ export default function NewsfeedCard({
         ) : null}
       </CardActions>
       <CardActions className={classes.postBody}>
-        {post.imgUrl ? (
+        {postImage && postImage.includes(".chif") ? (
+          <chear src={postImage} className={classes.chifImg} />
+        ) : (
           <CardMedia
             component="img"
             className={classes.img}
             alt="description of post image"
-            image={post.imgUrl}
+            image={postImage}
           />
-        ) : null}
+        )}
         <CardContent>
           {editing ? (
             <>

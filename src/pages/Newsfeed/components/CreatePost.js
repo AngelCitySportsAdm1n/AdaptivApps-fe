@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import config from "../../../config/auth_config";
 import { useMutation } from "react-apollo";
 // Component Imports
@@ -168,6 +168,9 @@ export default function CreatePost({ user, profile }) {
     },
   };
 
+  useEffect(() => {
+    if (postImage) window.chifPlayer.streamFiles();
+  }, [postImage]);
   return (
     <div className={classes.root}>
       <div className={classes.cta}>
@@ -200,13 +203,13 @@ export default function CreatePost({ user, profile }) {
             <InputLabel required className={classes.inputLabel} htmlFor="image">
               Post Image
             </InputLabel>
-            {postImage.includes(".chif") ? (
-              <chear src={file_path} />
+            {postImage && postImage?.includes(".chif") ? (
+              <chear src={postImage} className={classes.chifImg} />
             ) : (
               <img
                 src={postImage}
                 alt="image for this post"
-                className={classes.img}
+                className={classes.chifImg}
               />
             )}
             <Tooltip title="Remove Image">

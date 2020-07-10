@@ -116,11 +116,13 @@ const useStyles = makeStyles(theme => ({
   noError: {
     display: "none",
   },
+  
 }));
 
 function RecipientModal({ user, setOpen, allChatrooms, setNewRoom }) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   const { data: allUsers } = useQuery(GET_RECIPIENTS);
   const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
@@ -239,12 +241,15 @@ function RecipientModal({ user, setOpen, allChatrooms, setNewRoom }) {
     setOpen(false);
   };
 
+ 
   const handleChatRoomSearch = e => {
     if (e.key === "Enter") {
       var button = document.getElementById("chatSearch");
       button.click();
     }
+    
   };
+
 
   return (
     <div className={classes.root}>
@@ -282,42 +287,42 @@ function RecipientModal({ user, setOpen, allChatrooms, setNewRoom }) {
           />
           <div>
             <Paper style={{ maxHeight: 200, overflow: "auto" }}>
-              <List className={classes.searchContainer}>
                 <div
                   className={!searchTerm ? classes.search : classes.noSearch}
                 >
                   <p>Search for a user above or</p>
                   <p>choose from the list below!</p>
                 </div>
+              <List className={classes.searchContainer}>
                 {results.map(user => (
                   <button
                     aria-label={
                       user.firstName
-                        ? `Create new message with ${user.firstName} ${user.lastName}`
-                        : `Create new message with ${user.extProfile.orgName}`
+                        ? `Create new message with ${user?.firstName} ${user?.lastName}`
+                        : `Create new message with ${user?.extProfile?.orgName}`
                     }
                     className={classes.btn}
                     onClick={() => createNewChatRoom(user)}
                   >
                     <ListItem
                       value={
-                        user.firstName
-                          ? `${user.firstName} ${user.lastName}`
-                          : `${user.extProfile.orgName}`
+                        user?.firstName
+                          ? `${user?.firstName} ${user?.lastName}`
+                          : `${user?.extProfile?.orgName}`
                       }
                       aria-label={
                         user.firstName
-                          ? `${user.firstName} ${user.lastName}`
-                          : `${user.extProfile.orgName}`
+                          ? `${user?.firstName} ${user?.lastName}`
+                          : `${user?.extProfile?.orgName}`
                       }
                       onKeyDown={e => handleChatRoomSearch(e)}
                       id="chatSearch"
                     >
                       <ListItemText
                         primary={
-                          user.firstName
-                            ? `${user.firstName} ${user.lastName}`
-                            : `${user.extProfile.orgName}`
+                          user?.firstName
+                            ? `${user?.firstName} ${user?.lastName}`
+                            : `${user?.extProfile?.orgName}`
                         }
                       />
                     </ListItem>

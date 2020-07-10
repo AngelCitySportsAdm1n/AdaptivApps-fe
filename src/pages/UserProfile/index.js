@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       margin: theme.spacing(1),
     },
+    "& strong": {
+      fontWeight: "bold",
+    },
   },
   input: {
     display: "none",
@@ -54,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
   },
   topProfileWrapper: {
-    maxHeight: "25rem"
+    maxHeight: "25rem",
   },
   bannerWrapper: {
     width: "100%",
@@ -208,6 +211,9 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "100%",
     display: "flex",
     flexWrap: "wrap",
+  },
+  editBioP: {
+    margin: 0,
   },
 }));
 
@@ -404,6 +410,13 @@ export default function UserProfile() {
           <div className={classes.middleProfileWrapper}>
             <div className={classes.bioWrapper}>
               <h1>My Story.</h1>
+              {userProfile?.profile?.bio === null ? (
+                <p className={classes.editBioP}>
+                  Go to the Settings Tab to edit your info and complete this
+                  section!
+                </p>
+              ) : null}
+
               <div>
                 <p>{userProfile?.profile?.bio}</p>
               </div>

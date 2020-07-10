@@ -31,6 +31,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    padding: "0",
     display: "flex",
     flexDirection: "column",
     margin: "auto",
@@ -50,6 +51,8 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Arial",
     marginBottom: "10%",
     marginTop: "1%",
+    padding: "3%",
+
     [theme.breakpoints.down("sm")]: {
       alignSelf: "flex-start",
       margin: "2% 2.5rem",
@@ -124,8 +127,8 @@ const useStyles = makeStyles(theme => ({
   chatRoomDiv: {
     maxHeight: "75vh",
     overflowY: "auto",
-    overflowX: "hidden",
     overflow: "auto",
+    width: "100%",
   },
   addMessage: {
     display: "none",

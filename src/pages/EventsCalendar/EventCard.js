@@ -158,7 +158,7 @@ export default function EventCard({ event, refetch, user }) {
   const processAttendeeID = () => {
     if (event && event.attendees) {
       for (let i = 0; i < event.attendees.length; i++) {
-        if (event.attendees[i].eventProfile.email === user.email)
+        if (event?.attendees[i]?.eventProfile?.email === user?.email)
           return event.attendees[i].id;
       }
     } else {
@@ -172,7 +172,7 @@ export default function EventCard({ event, refetch, user }) {
       variables: {
         attendeeId: attendeeIdValue,
         eventId: event.id,
-        eventProfile: user.email,
+        eventProfile: user?.email,
       },
     });
     await navigate(`/calendar/${event.id}`);

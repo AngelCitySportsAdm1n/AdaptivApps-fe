@@ -60,10 +60,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: "5.8rem",
     },
     [theme.breakpoints.down("md")]: {
-      fontSize: "4.4rem",
+      fontSize: "4rem",
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: "2rem",
       position: "absolute",
       fontSize: "2.5rem",
       textAlign: "center",
@@ -71,8 +70,8 @@ const useStyles = makeStyles(theme => ({
       width: "90%",
     },
     [theme.breakpoints.down("xs")]: {
-      marginTop: "2rem",
-      fontSize: "1.8rem",
+      marginTop: "1rem",
+      fontSize: "1.6rem",
       width: "100%",
     },
   },

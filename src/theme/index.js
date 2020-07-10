@@ -9,6 +9,7 @@ const xl = 1920;
 const lg = 1280;
 const md = 960;
 const sm = 600;
+const four68 = 468;
 const ix = 376;
 const xs = 350;
 
@@ -42,6 +43,7 @@ const theme = createMuiTheme({
       sm,
       xs,
       ix,
+      four68,
     },
   },
 });

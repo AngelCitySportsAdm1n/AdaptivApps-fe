@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Google Analytics Imports
 import ReactGA from "react-ga";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import moment from "moment";
 // import ActivityGroup from "./ActivityGroup";
+import { useAuth0 } from "../../config/react-auth0-spa";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
+
 import { useParams, Link } from "@reach/router";
 // import { useNavigate } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
+import { REGISTER_FOR_EVENT } from "./queries/ActivityRegister";
+import {
+  UNREGISTER_FROM_EVENT,
+  UNREGISTER_FROM_ALL,
+  GET_ATTENDEES,
+  GET_PARTICIPANTS,
+  UNREGISTER_FROM_EVENT_ACTIVITY,
+  GET_USER_EVENTS,
+} from "../MyEvents/queries";
 
-import { makeStyles, Box, Typography } from "@material-ui/core";
+import { makeStyles, Box, Typography, Button } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
@@ -140,6 +151,21 @@ const useStyles = makeStyles({
       textDecoration: "none",
     },
   },
+  modalBtn1: {
+    padding: "1rem ",
+    margin: "2rem 1.5rem 0 3rem",
+    fontSize: "2.4rem",
+    color: "#2962FF",
+    borderRadius: "5px",
+    border: "2px solid #2962FF",
+    textTransform: "none",
+    boxSizing: "border-box",
+    fontWeight: "900",
+    "&:hover": {
+      background: "#2962FF",
+      color: "white",
+    },
+  },
 });
 /**
  * Event - Add custom tracking event.
@@ -157,8 +183,19 @@ export const trackAttendees = (category, action, label) => {
 
 export default function ActivityList() {
   const classes = useStyles();
+  const { user } = useAuth0();
   // const navigate = useNavigate();
   const { eventId } = useParams();
+  const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
+  const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
+  const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
+  const [
+    unregisterFromEventActivity,
+  ] = useMutation(UNREGISTER_FROM_EVENT_ACTIVITY, { fetchPolicy: "no-cache" });
+  const { data, refetch } = useQuery(GET_USER_EVENTS, {
+    variables: { email: user.email },
+    fetchPolicy: "no-cache",
+  });
   const { loading, error, data: activityData } = useQuery(
     GET_EVENT_ACTIVITIES,
     {
@@ -166,7 +203,91 @@ export default function ActivityList() {
       fetchPolicy: "no-cache",
     }
   );
+  // const { data, refetch: participantRefetch } = useQuery(GET_PARTICIPANTS, {
+  //   variables: { email: user.email, id: eventId },
+  //   fetchPolicy: "no-cache",
+  // });
+  const { data: attendeeData } = useQuery(GET_ATTENDEES, {
+    variables: { email: user.email, id: eventId },
+    fetchPolicy: "no-cache",
+  });
 
+  const processAttendeeID = () => {
+    if (activityData.event && activityData.event.attendees) {
+      for (let i = 0; i < activityData.event.attendees.length; i++) {
+        if (activityData.event.attendees[i].eventProfile.email === user.email)
+          return activityData.event.attendees[i].id;
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const registerEvent = async () => {
+    const attendeeIdValue = !processAttendeeID() ? "" : processAttendeeID();
+    await registerForEvent({
+      variables: {
+        attendeeId: attendeeIdValue,
+        eventId: activityData?.event?.id,
+        eventProfile: user.email,
+      },
+    });
+    await alert("You are registered for this event!");
+    window.location.reload();
+  };
+  console.log("activity data", data);
+
+  // Unregisters user from specified event and all it's activities
+  const eventUnregister = async () => {
+    const participantId = data?.participants?.map(participant => {
+      if (participant) {
+        if (participant.activityProfile.email === user.email) {
+          return participant?.id;
+        }
+      }
+    });
+    const attendeeId = attendeeData?.participants?.map(attendee => {
+      if (attendee) {
+        if (attendee.eventProfile.email === user.email) {
+          return attendee?.id;
+        }
+      }
+    });
+    const participantIdValue = JSON.stringify(participantId)?.replace(
+      /[\[\]"]+/g,
+      ""
+    );
+    const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
+    data?.participants && data?.participants?.length === 1
+      ? await unregisterFromEventActivity({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantId: participantIdValue,
+          },
+        })
+      : data && data?.participants === null
+      ? await unregisterFromEvent({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+          },
+        })
+      : await unregisterFromAll({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantId: participantId,
+          },
+        });
+    await alert("You have successfully unregistered for this event!");
+    await refetch();
+    window.location.reload();
+  };
+  useEffect(() => {
+    refetch();
+  }, [data, refetch]);
+  console.log("data in activity list", attendeeData?.participants?.length);
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
@@ -257,6 +378,23 @@ export default function ActivityList() {
         ) : null}
       </Box>
       <Box className={classes.details}>{activityData.event.details}</Box>
+      {attendeeData && attendeeData?.participants?.length > 0 ? (
+        <Button
+          aria-label={`Click to unregister ${activityData?.event?.title}`}
+          className={classes.modalBtn1}
+          onClick={eventUnregister}
+        >
+          Unregister from Event
+        </Button>
+      ) : (
+        <Button
+          aria-label={`Sign up for ${activityData?.event?.title}`}
+          className={classes.modalBtn1}
+          onClick={registerEvent}
+        >
+          Click here to Add to My Events!
+        </Button>
+      )}
       {/*activityData.event.activities.length >= 1 ? (
         <Box className={classes.activityC}>
           <p className={classes.myActivities}>Activities Schedule</p>

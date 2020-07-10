@@ -215,7 +215,7 @@ export default function ActivityList() {
   const processAttendeeID = () => {
     if (activityData.event && activityData.event.attendees) {
       for (let i = 0; i < activityData.event.attendees.length; i++) {
-        if (activityData.event.attendees[i].eventProfile.email === user.email)
+        if (activityData.event.attendees[i].eventProfile.email === user?.email)
           return activityData.event.attendees[i].id;
       }
     } else {

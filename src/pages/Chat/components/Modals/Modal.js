@@ -173,8 +173,11 @@ function RecipientModal({ user, setOpen, allChatrooms, setNewRoom }) {
     ? availableToChat
     : availableToChat.filter(
         person =>
+          person?.firstName?.includes(searchTerm) ||
           person?.firstName?.toLowerCase().includes(searchTerm) ||
+          person?.lastName?.includes(searchTerm) ||
           person?.lastName?.toLowerCase().includes(searchTerm) ||
+          person?.extProfile?.orgName?.includes(searchTerm) ||
           person?.extProfile?.orgName?.toLowerCase().includes(searchTerm)
       );
 

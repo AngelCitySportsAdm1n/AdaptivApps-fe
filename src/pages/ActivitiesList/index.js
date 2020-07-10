@@ -229,7 +229,7 @@ export default function ActivityList() {
       variables: {
         attendeeId: attendeeIdValue,
         eventId: activityData?.event?.id,
-        eventProfile: user.email,
+        eventProfile: user?.email,
       },
     });
     await alert("You are registered for this event!");

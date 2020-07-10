@@ -193,7 +193,7 @@ export default function ActivityList() {
     unregisterFromEventActivity,
   ] = useMutation(UNREGISTER_FROM_EVENT_ACTIVITY, { fetchPolicy: "no-cache" });
   const { data, refetch } = useQuery(GET_USER_EVENTS, {
-    variables: { email: user.email },
+    variables: { email: user?.email },
     fetchPolicy: "no-cache",
   });
   const { loading, error, data: activityData } = useQuery(
@@ -208,7 +208,7 @@ export default function ActivityList() {
   //   fetchPolicy: "no-cache",
   // });
   const { data: attendeeData } = useQuery(GET_ATTENDEES, {
-    variables: { email: user.email, id: eventId },
+    variables: { email: user?.email, id: eventId },
     fetchPolicy: "no-cache",
   });
 
@@ -235,7 +235,6 @@ export default function ActivityList() {
     await alert("You are registered for this event!");
     window.location.reload();
   };
-  console.log("activity data", data);
 
   // Unregisters user from specified event and all it's activities
   const eventUnregister = async () => {
@@ -287,7 +286,7 @@ export default function ActivityList() {
   useEffect(() => {
     refetch();
   }, [data, refetch]);
-  console.log("data in activity list", attendeeData?.participants?.length);
+
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 

@@ -11,6 +11,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "4rem auto 4rem auto",
+    width: "100%",
+    "& .makeStyles-root-94": {
+      maxWidth: "64rem",
+      width: "90%",
+    },
   },
   title: {
     fontSize: "2.4rem",
@@ -40,7 +45,9 @@ export default function UserFeedposts({ user, userName }) {
 
   return (
     <div className={classes.root}>
-      {data?.feedPosts.length > 0 ? <h3 className={classes.title}>My Community Posts</h3> : null}
+      {data?.feedPosts.length > 0 ? (
+        <h3 className={classes.title}>My Community Posts</h3>
+      ) : null}
       {data?.feedPosts?.map((post, index) => (
         <NewsfeedCard
           post={post}
@@ -48,6 +55,7 @@ export default function UserFeedposts({ user, userName }) {
           user={user}
           refetchPosts={refetch}
           profile={profile?.profile}
+          className={classes.card}
         />
       ))}
     </div>

@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     margin: "0",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       flexDirection: "column",
     },
   },
@@ -108,18 +108,20 @@ const useStyles = makeStyles(theme => ({
     "& h3": {
       textAlign: "center",
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       margin: "0 auto",
       width: "80%",
-      // display: "none",
     },
   },
-
   postsContainer: {
     display: "flex",
     flexDirection: "column",
     "& h3": {
       textAlign: "center",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0 auto",
+      width: "100%",
     },
   },
   basicInfo: {
@@ -433,12 +435,12 @@ export default function UserProfile() {
               </div>
             ) : null} */}
           </div>
+          {userProfile?.profile?.type === "Individual" ? (
+            <div className={classes.postsContainer}>
+              <UserFeedposts user={user} userName={userName} />
+            </div>
+          ) : null}
         </div>
-        {userProfile?.profile?.type === "Individual" ? (
-          <div className={classes.postsContainer}>
-            <UserFeedposts user={user} userName={userName} />
-          </div>
-        ) : null}
         {userProfile?.profile?.type === "Individual" ? (
           <div className={classes.eventsContainer}>
             <UpcomingEventList userName={userName} />

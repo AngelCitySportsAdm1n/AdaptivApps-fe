@@ -124,8 +124,8 @@ export default function UpcomingEventList({ userName }) {
                   <img
                     src={
                       event?.imgUrl === null ||
-                        event?.imgUrl === undefined ||
-                        event?.imgUrl === ""
+                      event?.imgUrl === undefined ||
+                      event?.imgUrl === ""
                         ? eventImg
                         : event?.imgUrl
                     }
@@ -147,8 +147,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-          <h3 className={classes.text}>You have no upcoming events.</h3>
-        )}
+        <h3 className={classes.text}>You have no upcoming events.</h3>
+      )}
     </>
   );
 }

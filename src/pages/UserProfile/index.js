@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw",
     width: "100%",
+    height: "100%",
     display: "flex",
     "& > *": {
       margin: theme.spacing(1),
@@ -44,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 
   profileEventWrapper: {
     width: "100%",
+    height: "100%",
     display: "flex",
     justifyContent: "space-between",
     margin: "0",
@@ -53,9 +55,11 @@ const useStyles = makeStyles(theme => ({
   },
   profileWrapper: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
   },
+
   topProfileWrapper: {
     maxHeight: "25rem",
   },
@@ -97,42 +101,20 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     marginTop: "2rem",
     flexDirection: "column",
-    maxHeight: "100vh",
+    maxHeight: "100%",
     width: "32rem",
-    border: "none",
-    boxShadow: "none",
     backgroundColor: "white",
-    overflowY: "scroll",
     scrollbarColor: "white white",
     "& h3": {
       textAlign: "center",
     },
     [theme.breakpoints.down("sm")]: {
-      // margin: "0 auto",
-      // width: "80%",
-      display: "none",
-    },
-  },
-  eventsContainerResponsive: {
-    display: "none",
-    [theme.breakpoints.down("sm")]: {
-      display: "flex",
-      marginTop: "2rem",
-      flexDirection: "column",
-      maxHeight: "100vh",
-      width: "32rem",
-      border: "none",
-      boxShadow: "none",
-      backgroundColor: "white",
-      overflowY: "scroll",
-      scrollbarColor: "white white",
-      "& h3": {
-        textAlign: "center",
-      },
       margin: "0 auto",
       width: "80%",
+      // display: "none",
     },
   },
+
   postsContainer: {
     display: "flex",
     flexDirection: "column",
@@ -188,11 +170,12 @@ const useStyles = makeStyles(theme => ({
   },
   middleProfileWrapper: {
     marginTop: "2rem",
-    height: "300px",
+    height: "100%",
   },
   bioWrapper: {
+    overflow: "auto",
     margin: "0 auto",
-    height: "50%",
+    height: "100%",
     width: "75%",
     maxWidth: "80rem",
     "& p": {
@@ -450,17 +433,12 @@ export default function UserProfile() {
               </div>
             ) : null} */}
           </div>
-          {userProfile?.profile?.type === "Individual" ? (
-            <div className={classes.eventsContainerResponsive}>
-              <UpcomingEventList userName={userName} />
-            </div>
-          ) : null}
-          {userProfile?.profile?.type === "Individual" ? (
-            <div className={classes.postsContainer}>
-              <UserFeedposts user={user} userName={userName} />
-            </div>
-          ) : null}
         </div>
+        {userProfile?.profile?.type === "Individual" ? (
+          <div className={classes.postsContainer}>
+            <UserFeedposts user={user} userName={userName} />
+          </div>
+        ) : null}
         {userProfile?.profile?.type === "Individual" ? (
           <div className={classes.eventsContainer}>
             <UpcomingEventList userName={userName} />

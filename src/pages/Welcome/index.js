@@ -102,15 +102,20 @@ const Welcome = () => {
       <div className={classes.body}>
         <h3 className={classes.h3}>Welcome!</h3>
         <Typography>
-          This accessible website will be your home for the 2020 <i>Angel City Virtual Games presented by The Hartford</i>! We are so excited for what’s
-          ahead! Get ready for three epic weeks of sports, special events,
-          community fun, and most of all-connection. Thank you so much for
-          registering for the 2020 <i>Angel City Virtual Games presented by The Hartford</i>…this summer is going to be a blast!
+          This accessible website will be your home for the 2020{" "}
+          <i>Angel City Virtual Games presented by The Hartford</i>! We are so
+          excited for what’s ahead! Get ready for three epic weeks of sports,
+          special events, community fun, and most of all-connection. Thank you
+          so much for registering for the 2020{" "}
+          <i>Angel City Virtual Games presented by The Hartford</i>…this summer
+          is going to be a blast!
           <br />
           <br />
           Be sure to update your account information in{" "}
-          <strong>Settings</strong> from the menu to gain access to all the features of the website. Once you've updated your account information, you may now browse the <strong>Events Calendar</strong>{" "}
-          to select the events you are interested in attending, and utilize the{" "}
+          <strong>Settings</strong> from the menu to gain access to all the
+          features of the website. Once you've updated your account information,
+          you may now browse the <strong>Events Calendar</strong> to select the
+          events you are interested in attending, and utilize the{" "}
           <strong>Chat</strong> to connect with friends, peers, and coaches from
           all over the world!
           <br />
@@ -123,25 +128,29 @@ const Welcome = () => {
         </Typography>
 
         <h3 className={classes.h3}>
-          The 2020 Angel City Virtual Games Presented by The Harford
+          The 2020 Angel City Virtual Games Presented by The Hartford
         </h3>
         <Typography>
           On March 12th, Angel City Sports made the decision to suspend all
           in-person programming and events in response to the COVID-19 crisis.
-          This included the 2020 <i>Angel City Games presented by The Hartford</i>.
-          Quickly after that decision was made, the Angel City team began to
-          brainstorm ways to inspire and support our athletes to connect,
-          engage, and build community all while living healthy, active lives.
+          This included the 2020{" "}
+          <i>Angel City Games presented by The Hartford</i>. Quickly after that
+          decision was made, the Angel City team began to brainstorm ways to
+          inspire and support our athletes to connect, engage, and build
+          community all while living healthy, active lives.
           <br />
           <br />
-          Thus, the 2020 <i>Angel City Virtual Games presented by The Hartford</i> was
-          created!
+          Thus, the 2020{" "}
+          <i>Angel City Virtual Games presented by The Hartford</i> was created!
           <br />
           <br />
-          The 2020 <i>Angel City Virtual Games presented by The Hartford</i> will
-          mirror all components of the physical Games: sport clinics,
+          The 2020 <i>
+            Angel City Virtual Games presented by The Hartford
+          </i>{" "}
+          will mirror all components of the physical Games: sport clinics,
           competitive opportunities, special events, and community building. The
-          key difference – <strong>
+          key difference –{" "}
+          <strong>
             the Virtual Games will last 3 weeks instead of 4 days!
           </strong>{" "}
           For more detailed information, you can head over to
@@ -174,10 +183,20 @@ const Welcome = () => {
 
         <h3 className={classes.h3}>About Angel City Sports</h3>
         <Typography className={classes.lastParagraph}>
-        Angel City Sports provides year-round free adaptive sports opportunities for kids, adults, and veterans with physical disabilities or visual impairments. A chapter member of Move United, Angel City Sports is focused on encouraging participation in sports and recreation activities for people with physical disabilities and advancing the Paralympic movement. Debuting in 2015, the annual <i>Angel City Games presented by The Hartford</i> is now the largest multisport Paralympic competition open to kids, adults, and veterans.
+          Angel City Sports provides year-round free adaptive sports
+          opportunities for kids, adults, and veterans with physical
+          disabilities or visual impairments. A chapter member of Move United,
+          Angel City Sports is focused on encouraging participation in sports
+          and recreation activities for people with physical disabilities and
+          advancing the Paralympic movement. Debuting in 2015, the annual{" "}
+          <i>Angel City Games presented by The Hartford</i> is now the largest
+          multisport Paralympic competition open to kids, adults, and veterans.
           <br />
           <br />
-          In addition to providing free equipment, coaching, and competitive opportunities – Angel City focuses on how every individual can reach their full potential and unlock their dreams through music, art, higher education, and career opportunities.
+          In addition to providing free equipment, coaching, and competitive
+          opportunities – Angel City focuses on how every individual can reach
+          their full potential and unlock their dreams through music, art,
+          higher education, and career opportunities.
           <br />
           <br />
           For more information about Angel City Sports, visit{" "}

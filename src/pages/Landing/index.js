@@ -12,7 +12,6 @@ import { Link } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import landingImage from "../../assets/images/landingImage.jpeg";
 import landingImage2 from "../../assets/images/landingImage2.jpg";
-import { FaFacebookSquare, FaGoogle } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 const useStyles = makeStyles(theme => ({
@@ -156,7 +155,6 @@ const useStyles = makeStyles(theme => ({
     },
     "& span": {
       display: "flex",
-      justifyContent: "flex-start",
       "& svg": {
         margin: "0 1.5rem",
       },
@@ -190,7 +188,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& span": {
       display: "flex",
-      justifyContent: "flex-start",
+
       "& svg": {
         margin: "0 1.5rem",
       },
@@ -255,17 +253,15 @@ const LandingPage = () => {
         <Box className={classes.btnContainer}>
           <Button
             className={classes.btn1}
-            onClick={() => loginWithRedirect({})}
+            onClick={() => loginWithRedirect({ screen_hint: "signup" })}
           >
-            <FaFacebookSquare className={classes.icon} />
-            <p>Sign up with Facebook</p>
+            <p>Sign Up</p>
           </Button>
           <Button
             className={classes.btn2}
             onClick={() => loginWithRedirect({})}
           >
-            <FaGoogle className={classes.icon} />
-            <p>Sign up with Google</p>
+            <p>Log In</p>
           </Button>
           <Link
             to="privacy-policy"

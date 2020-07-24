@@ -126,6 +126,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+   
     "& p": {
       fontSize: "2.4rem",
       fontWeight: "bold",
@@ -144,7 +145,9 @@ const useStyles = makeStyles(theme => ({
     margin: "2rem 0 2rem 0",
     textTransform: "none",
     display: "flex",
+    alignItems: "center",
     borderRadius: "5px",
+    
     width: "40rem",
     height: "6rem",
     backgroundColor: "#3B5998",
@@ -156,7 +159,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& span": {
       display: "flex",
-      justifyContent: "flex-start",
+     
       "& svg": {
         margin: "0 1.5rem",
       },
@@ -190,7 +193,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& span": {
       display: "flex",
-      justifyContent: "flex-start",
+     
       "& svg": {
         margin: "0 1.5rem",
       },
@@ -255,17 +258,17 @@ const LandingPage = () => {
         <Box className={classes.btnContainer}>
           <Button
             className={classes.btn1}
-            onClick={() => loginWithRedirect({})}
+            onClick={() => loginWithRedirect({ screen_hint: "signup" })}
           >
-            <FaFacebookSquare className={classes.icon} />
-            <p>Sign up with Facebook</p>
+           
+            <p>Sign Up</p>
           </Button>
           <Button
             className={classes.btn2}
             onClick={() => loginWithRedirect({})}
           >
-            <FaGoogle className={classes.icon} />
-            <p>Sign up with Google</p>
+           
+            <p>Log In</p>
           </Button>
           <Link
             to="privacy-policy"

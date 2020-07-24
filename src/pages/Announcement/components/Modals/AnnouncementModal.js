@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { useMutation, useQuery } from "react-apollo";
 import {
   CREATE_ANNOUNCEMENT,
@@ -67,6 +69,14 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       color: "#2962FF",
     },
+  },
+  quillContainer: {
+    "& p": {
+      fontSize: "1.8rem"
+    },
+    "& span": {
+      fontSize: "1.8rem"
+    }
   },
 }));
 
@@ -150,6 +160,62 @@ function AnnouncementModal({
   };
 
   return (
+    // <div className={classes.modal}>
+    //   <div className={classes.paper}>
+    //     <Tooltip title="Cancel">
+    //       <CloseIcon className={classes.closeModal} onClick={closeModal} />
+    //     </Tooltip>
+    //     <h2 id="transition-modal-title" className={classes.span}>
+    //       Create New Announcement
+    //     </h2>
+    //     <h3 className={classes.titles}>Announcement Title</h3>
+    //     <div className={classes.titleDiv}>
+    //       <Box component="div" className={classes.titleInput}>
+    //         <TextField
+    //           onBlur={checkIfTitleEmpty}
+    //           placeholder="Required field"
+    //           variant="outlined"
+    //           type="text"
+    //           fullWidth
+    //           name="announcementTitle"
+    //           value={newAnnouncement}
+    //           onChange={handleTitleChange}
+    //         />
+    //       </Box>
+    //     </div>
+    //     <h3 className={classes.titles}>Announcement Text</h3>
+    //     <div className={classes.titleDiv}>
+    //       <Box component="div" className={classes.titleInput}>
+    //         <TextField
+    //           onBlur={checkIfBodyEmpty}
+    //           placeholder="Required field"
+    //           variant="outlined"
+    //           multiline={true}
+    //           rows={2}
+    //           rowsMax={4}
+    //           fullWidth
+    //           type="text"
+    //           name="announcementText"
+    //           value={newAnnouncementText}
+    //           onChange={handleMessageChange}
+    //         />
+    //       </Box>
+    //     </div>
+    //     <div className={classes.buttonDiv}>
+    //       <Tooltip title="Send Announcement">
+    //         <Button
+    //           variant="outlined"
+    //           color="primary"
+    //           onClick={onSubmit}
+    //           className={classes.button}
+    //           disabled={buttonDisabled}
+    //         >
+    //           Send Announcement
+    //         </Button>
+    //       </Tooltip>
+    //     </div>
+    //   </div>
+    // </div>
     <div className={classes.modal}>
       <div className={classes.paper}>
         <Tooltip title="Cancel">
@@ -158,7 +224,8 @@ function AnnouncementModal({
         <h2 id="transition-modal-title" className={classes.span}>
           Create New Announcement
         </h2>
-        <h3 className={classes.titles}>Announcement Title</h3>
+        <ReactQuill className={classes.quillContainer} />
+        {/* <h3 className={classes.titles}>Announcement Title</h3>
         <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
@@ -190,7 +257,7 @@ function AnnouncementModal({
               onChange={handleMessageChange}
             />
           </Box>
-        </div>
+        </div> */}
         <div className={classes.buttonDiv}>
           <Tooltip title="Send Announcement">
             <Button

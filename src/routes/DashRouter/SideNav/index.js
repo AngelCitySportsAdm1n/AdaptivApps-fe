@@ -247,7 +247,7 @@ function SideNav(props) {
     data: announcements,
     refetch: refetchAnnouncements,
   } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-
+console.log('Quill announcement', announcements)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

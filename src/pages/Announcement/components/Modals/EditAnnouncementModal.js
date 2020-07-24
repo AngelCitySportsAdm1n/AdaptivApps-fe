@@ -77,12 +77,12 @@ function EditAnnouncementModal({
 
   const [updateAnnouncement] = useMutation(UPDATE_ANNOUNCEMENT);
 
-  const [updateTitle, setUpdateTitle] = useState(announcement.title);
+  // const [updateTitle, setUpdateTitle] = useState(announcement.title);
   const [updateMessage, setUpdateMessage] = useState(announcement.message);
 
-  const handleTitleChange = e => {
-    setUpdateTitle(e.target.value);
-  };
+  // const handleTitleChange = e => {
+  //   setUpdateTitle(e.target.value);
+  // };
 
   const handleMessageChange = e => {
     setUpdateMessage(e.target.value);
@@ -93,7 +93,7 @@ function EditAnnouncementModal({
     await updateAnnouncement({
       variables: {
         id: announcement.id,
-        title: updateTitle,
+        // title: updateTitle,
         message: updateMessage,
       },
     });
@@ -118,14 +118,14 @@ function EditAnnouncementModal({
         <h3 className={classes.titles}>Announcement Title</h3>
         <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
-            <TextField
+            {/* <TextField
               variant="outlined"
               type="text"
               fullWidth
               name="announcementTitle"
               value={updateTitle}
               onChange={handleTitleChange}
-            />
+            /> */}
           </Box>
         </div>
         <h3 className={classes.titles}>Announcement Text</h3>

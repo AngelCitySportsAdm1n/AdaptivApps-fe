@@ -110,11 +110,12 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
   const announcementArray = announcements && announcements?.announcements?.map((announcement) => {
     return {
       id: announcement.id,
-      title: announcement.title,
       message: announcement.message,
       createdAt: announcement.createdAt,
     }
   });
+  console.log('AnnouncementArray', announcementArray?.message?.valueOf())
+
 
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
@@ -145,7 +146,7 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  <p className={classes.sender}>{announcement.title}</p>
+                  {/* <p className={classes.sender}>{announcement.title}</p> */}
                   {user && user[config.roleUrl].includes("Admin") ? (
                     <div className={classes.iconDiv}>
                       <Tooltip title="Edit Announcement">
@@ -160,7 +161,9 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
                       </Tooltip>
                     </div>) : null}
                 </div>
-                <p className={classes.messageText}>{announcement.message}</p>
+                {/* <p className={classes.messageText}>{announcement.message}</p> */}
+                
+                <div dangerouslySetInnerHTML={{ __html: announcement.message }}/>
                 <div ref={announcementsEndRef} />
               </div>
             </div>

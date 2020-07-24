@@ -93,23 +93,18 @@ function AnnouncementModal({
     CREATE_ANNOUNCEMENT_NOTIFICATION
   );
 
-  const [newAnnouncement, setNewAnnouncement] = useState();
-  const [newAnnouncementText, setNewAnnouncementText] = useState();
+  const [text, setText] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const handleTitleChange = e => {
-    setNewAnnouncement(e.target.value);
-  };
 
-  const handleMessageChange = e => {
-    setNewAnnouncementText(e.target.value);
-  };
+  const handleMessageChange = value => setText(value);
+  
 
   useEffect(() => {
-    newAnnouncementText === undefined || newAnnouncement === undefined
+    text === undefined 
       ? setButtonDisabled(true)
       : setButtonDisabled(false);
-  }, [newAnnouncementText, newAnnouncement]);
+  }, [text]);
 
   //Create array of emails to match BE data shape, exclude yourself
   const allUserEmails = data?.profiles
@@ -124,8 +119,8 @@ function AnnouncementModal({
     e.preventDefault();
     createAnnouncement({
       variables: {
-        title: newAnnouncement,
-        message: newAnnouncementText,
+        // title: newAnnouncement,
+        message: text,
         isAnnouncementRoom: true,
         participants: allUserEmails,
       },
@@ -147,15 +142,15 @@ function AnnouncementModal({
     setAnnouncementOpen(false);
   };
 
-  const checkIfTitleEmpty = e => {
-    if (e.target.value === "") {
-      alert("Announcement Title is required");
-    }
-  };
+  // const checkIfTitleEmpty = e => {
+  //   if (e.target.value === "") {
+  //     alert("Announcement Title is required");
+  //   }
+  // };
 
   const checkIfBodyEmpty = e => {
-    if (e.target.value === "") {
-      alert("Announcement Title is required");
+    if (text === "") {
+      alert("Announcement content is required");
     }
   };
 
@@ -224,7 +219,7 @@ function AnnouncementModal({
         <h2 id="transition-modal-title" className={classes.span}>
           Create New Announcement
         </h2>
-        <ReactQuill className={classes.quillContainer} />
+        <ReactQuill className={classes.quillContainer} value={text} onChange={handleMessageChange} onBlur={checkIfBodyEmpty} />
         {/* <h3 className={classes.titles}>Announcement Title</h3>
         <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>

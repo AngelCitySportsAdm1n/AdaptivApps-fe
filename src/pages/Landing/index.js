@@ -12,7 +12,6 @@ import { Link } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import landingImage from "../../assets/images/landingImage.jpeg";
 import landingImage2 from "../../assets/images/landingImage2.jpg";
-import { FaFacebookSquare, FaGoogle } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 const useStyles = makeStyles(theme => ({

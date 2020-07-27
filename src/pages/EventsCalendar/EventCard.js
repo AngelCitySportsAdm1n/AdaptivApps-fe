@@ -222,108 +222,129 @@ export default function EventCard({ event, refetch, user }) {
       </Box>
     </>
   );
+
+  //turn on/off past events
+
+  const todayDate = new Date();
+  let today =
+    todayDate.getFullYear() +
+    "-" +
+    (todayDate.getMonth() + 1 < 10 ? "0" : "") +
+    (todayDate.getMonth() + 1) +
+    "-" +
+    (todayDate.getDate() < 10 ? "0" : "") +
+    todayDate.getDate();
+
   return (
     <>
-      <Card className={classes.root}>
-        <CardActionArea className={classes.card}>
-          <Box>
-            <div className={classes.banner}>{event.type}</div>
-            <CardMedia
-              className={classes.cardImg}
-              component="img"
-              alt="Event"
-              width="15rem"
-              image={
-                event?.imgUrl === null ||
-                event?.imgUrl === undefined ||
-                event?.imgUrl === ""
-                  ? eventImg
-                  : event?.imgUrl
-              }
-              title="Angel City Event"
-              onClick={() => navigate(`/calendar/${event.id}`)}
-            />
-          </Box>
-          <Box className={classes.contentWrapper}>
-            <CardContent className={classes.content}>
-              <Typography
-                className={classes.cardContainer}
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
-                <span className={classes.cardDate}>
-                  {moment(event.startDate).format("MM/DD/YYYY")}{" "}
-                </span>
-                <span className={classes.cardDate}>
-                  {event.startTime &&
-                    !event.endTime &&
-                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
-                  {event.startTime &&
-                    event.endTime &&
-                    event.startTime !== event.endTime &&
-                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
-                  {event.startTime &&
-                    event.endTime &&
-                    event.endTime === event.startTime &&
-                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
-                  {event.startTime &&
-                    event.endTime &&
-                    event.endTime !== event.startTime &&
-                    " - "}
-                  {!event.startTime && event.endTime && "Ends at "}
-                  {event.endTime &&
-                    event.endTime !== event.startTime &&
-                    `${moment(event.endTime, "HH:mm").format("h:mm A")} PST`}
-                </span>
-              </Typography>
-              <Typography
-                className={classes.cardTitle}
-                gutterBottom
-                variant="h5"
-                component="h2"
-              >
-                {event.title}
-              </Typography>
-              <Typography
-                className={classes.cardLoc}
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
-                {event.location}
-              </Typography>
-            </CardContent>
-          </Box>
-        </CardActionArea>
-        <CardActions className={classes.btnContainer}>
-          <SimpleModal event={event} registerEvent={registerEvent} />
-          {user && user[config.roleUrl].includes("Admin") ? (
-            <Box className={classes.editDeleteBtn}>
-              <Button aria-label="edit this event" onClick={editEvent}>
-                <EditOutlinedIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
-              <Button aria-label="delete this event" onClick={handleOpen}>
-                <DeleteOutlineIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
+      <>
+        <Card className={classes.root}>
+          <CardActionArea className={classes.card}>
+            <Box>
+              <div className={classes.banner}>{event.type}</div>
+              <CardMedia
+                className={classes.cardImg}
+                component="img"
+                alt="Event"
+                width="15rem"
+                image={
+                  event?.imgUrl === null ||
+                  event?.imgUrl === undefined ||
+                  event?.imgUrl === ""
+                    ? eventImg
+                    : event?.imgUrl
+                }
+                title="Angel City Event"
+                onClick={() => navigate(`/calendar/${event.id}`)}
+              />
             </Box>
-          ) : null}
-        </CardActions>
-      </Card>
-      <DeleteModal
-        onClick={removeEvent}
-        open={open}
-        body={body}
-        handleClose={handleClose}
-      />
+            <Box className={classes.contentWrapper}>
+              <CardContent className={classes.content}>
+                <Typography
+                  className={classes.cardContainer}
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                >
+                  <span className={classes.cardDate}>
+                    {moment(event.startDate).format("MM/DD/YYYY")}{" "}
+                  </span>
+                  <span className={classes.cardDate}>
+                    {event.startTime &&
+                      !event.endTime &&
+                      `${moment(event.startTime, "HH:mm").format(
+                        "h:mm A"
+                      )} PST`}
+                    {event.startTime &&
+                      event.endTime &&
+                      event.startTime !== event.endTime &&
+                      `${moment(event.startTime, "HH:mm").format(
+                        "h:mm A"
+                      )} PST`}
+                    {event.startTime &&
+                      event.endTime &&
+                      event.endTime === event.startTime &&
+                      `${moment(event.startTime, "HH:mm").format(
+                        "h:mm A"
+                      )} PST`}
+                    {event.startTime &&
+                      event.endTime &&
+                      event.endTime !== event.startTime &&
+                      " - "}
+                    {!event.startTime && event.endTime && "Ends at "}
+                    {event.endTime &&
+                      event.endTime !== event.startTime &&
+                      `${moment(event.endTime, "HH:mm").format("h:mm A")} PST`}
+                  </span>
+                </Typography>
+                <Typography
+                  className={classes.cardTitle}
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                >
+                  {event.title}
+                </Typography>
+                <Typography
+                  className={classes.cardLoc}
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                >
+                  {event.location}
+                </Typography>
+              </CardContent>
+            </Box>
+          </CardActionArea>
+          <CardActions className={classes.btnContainer}>
+            <SimpleModal event={event} registerEvent={registerEvent} />
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <Box className={classes.editDeleteBtn}>
+                <Button aria-label="edit this event" onClick={editEvent}>
+                  <EditOutlinedIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+                <Button aria-label="delete this event" onClick={handleOpen}>
+                  <DeleteOutlineIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+              </Box>
+            ) : null}
+          </CardActions>
+        </Card>
+        <DeleteModal
+          onClick={removeEvent}
+          open={open}
+          body={body}
+          handleClose={handleClose}
+        />
+      </>
     </>
   );
 }

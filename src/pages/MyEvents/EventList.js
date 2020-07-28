@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import HashMap from "hashmap";
 import MyEventCard from "./MyEventCard";
-import { Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   eventGroup: {
@@ -23,9 +23,34 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
   },
+  largeFormBtn: {
+    color: "red",
+  },
+  button: {
+    border: "2px solid #2962FF",
+    color: "#2962FF",
+    height: "4rem",
+    width: "20rem",
+    fontSize: "2.5rem",
+    textTransform: "none",
+    margin: "1rem 0",
+  },
 }));
 
+//turn on/off past events
+
+const todayDate = new Date();
+let today =
+  todayDate.getFullYear() +
+  "-" +
+  (todayDate.getMonth() + 1 < 10 ? "0" : "") +
+  (todayDate.getMonth() + 1) +
+  "-" +
+  (todayDate.getDate() < 10 ? "0" : "") +
+  todayDate.getDate();
+
 export default function EventList({ data, refetch }) {
+  const [pastEvents, setPastEvents] = useState(false);
   const classes = useStyles();
   var eventsMap = new HashMap();
 
@@ -36,14 +61,13 @@ export default function EventList({ data, refetch }) {
       if (a.startDate < b.startDate) return -1;
       else if (a.startDate > b.startDate) return 1;
       else return 0;
-    })
+    });
     for (let i = 0; i < sortedEvents.length; i++) {
       const startDate = sortedEvents[i]?.startDate;
       if (eventsMap.has(startDate)) {
         // Push this event
         eventsMap.get(startDate).push(sortedEvents[i]);
-      }
-      else {
+      } else {
         // Create new entry
         const events = [];
         events.push(sortedEvents[i]);
@@ -53,25 +77,91 @@ export default function EventList({ data, refetch }) {
   }
 
   const allDates = eventsMap.keys();
-
+  useEffect(() => {}, [pastEvents, setPastEvents]);
   return (
     <>
-      {allDates.length > 0 ?
+      {pastEvents === false ? (
+        <Button
+          onClick={() => setPastEvents(true)}
+          className={classes.button}
+          variant="outlined"
+          color="primary"
+          type="submit"
+          aria-label="Click here to see past events"
+        >
+          Past Events
+        </Button>
+      ) : (
+        <Button
+          onClick={() => setPastEvents(false)}
+          className={classes.button}
+          variant="outlined"
+          color="primary"
+          type="submit"
+          aria-label="Click here to see upcoming events"
+        >
+          Upcoming Events
+        </Button>
+      )}
+      {allDates.length > 0 ? (
         <div>
-          {allDates.map(date => (
-            <div className={classes.eventGroup}>
-              <Typography variant="h1">{moment(date).format("dddd, MMMM Do YYYY").split(", ")[0]}</Typography>
-              <Typography variant="h3">{moment(date).format("dddd, MMMM Do YYYY").split(", ")[1]}</Typography>
-              <div className={classes.eventCard}>
-                {eventsMap.get(date).map(event => (
-                  <MyEventCard key={event.id} event={event} refetch={refetch} />
-                ))}
+          {allDates.map((date, idx) =>
+            date >= today && pastEvents === false ? (
+              <div className={classes.eventGroup} key={idx}>
+                <Typography variant="h1">
+                  {
+                    moment(date)
+                      .format("dddd, MMMM Do YYYY")
+                      .split(", ")[0]
+                  }
+                </Typography>
+                <Typography variant="h3">
+                  {
+                    moment(date)
+                      .format("dddd, MMMM Do YYYY")
+                      .split(", ")[1]
+                  }
+                </Typography>
+                <div className={classes.eventCard}>
+                  {eventsMap.get(date).map(event => (
+                    <MyEventCard
+                      key={event.id}
+                      event={event}
+                      refetch={refetch}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div> :
-        null
-      }
+            ) : date < today && pastEvents === true ? (
+              <div className={classes.eventGroup} key={idx}>
+                <Typography variant="h1">
+                  {
+                    moment(date)
+                      .format("dddd, MMMM Do YYYY")
+                      .split(", ")[0]
+                  }
+                </Typography>
+                <Typography variant="h3">
+                  {
+                    moment(date)
+                      .format("dddd, MMMM Do YYYY")
+                      .split(", ")[1]
+                  }
+                </Typography>
+                <div className={classes.eventCard}>
+                  {eventsMap.get(date).map(event => (
+                    <MyEventCard
+                      key={event.id}
+                      event={event}
+                      refetch={refetch}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : null
+          )}
+        </div>
+      ) : null}
     </>
   );
 }

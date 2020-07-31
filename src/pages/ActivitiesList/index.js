@@ -366,28 +366,43 @@ export default function ActivityList() {
             <Typography className={classes.zoomLinks} variant="h2">
               Zoom Meeting Links
             </Typography>
-            {activityData?.event?.link.split(", ").map(link => (
-              <a
-                href={activityData?.event?.link}
-                rel="noopener noreferrer"
-                target="_blank"
-                onClick={() =>
-                  trackAttendees(
-                    "Event",
-                    "Joined Virtual Event",
-                    "ATTENDEE_ADDED"
-                  )
-                }
-              >
-                {link.includes("+1669")
-                  ? `${link} (San Jose)`
-                  : link.includes("+1346")
-                  ? `${link} (Houston)`
-                  : link.includes("+1253")
-                  ? `${link} (Tacoma)`
-                  : link}
-              </a>
-            ))}
+            {activityData?.event?.link.split(", ").map(link =>
+              link.includes("https") ? (
+                <a
+                  href={activityData?.event?.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  onClick={() =>
+                    trackAttendees(
+                      "Event",
+                      "Joined Virtual Event",
+                      "ATTENDEE_ADDED"
+                    )
+                  }
+                >
+                  Click Here to Join by Web
+                </a>
+              ) : (
+                <a
+                  href={activityData?.event?.link}
+                  onClick={() =>
+                    trackAttendees(
+                      "Event",
+                      "Joined Virtual Event",
+                      "ATTENDEE_ADDED"
+                    )
+                  }
+                >
+                  {link.includes("+1669")
+                    ? `${link} (San Jose)`
+                    : link.includes("+1346")
+                    ? `${link} (Houston)`
+                    : link.includes("+1253")
+                    ? `${link} (Tacoma)`
+                    : link}
+                </a>
+              )
+            )}
           </Box>
         ) : null}
       </Box>

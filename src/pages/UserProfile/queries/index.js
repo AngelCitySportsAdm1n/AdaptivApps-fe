@@ -4,6 +4,8 @@ export const GET_USER_PROFILE = gql`
   query getUserProfile($email: String!) {
     profile(where: { email: $email }) {
       id
+      type
+      private
       firstName
       lastName
       email
@@ -16,6 +18,13 @@ export const GET_USER_PROFILE = gql`
       bio
       city
       state
+      extProfile {
+        id
+        private
+        website
+        orgName
+        gender
+      }
     }
   }
 `;

@@ -369,7 +369,7 @@ export default function ActivityList() {
             {activityData?.event?.link.split(", ").map(link =>
               link.includes("https") ? (
                 <a
-                  href={activityData?.event?.link}
+                  href={link}
                   rel="noopener noreferrer"
                   target="_blank"
                   onClick={() =>
@@ -384,7 +384,7 @@ export default function ActivityList() {
                 </a>
               ) : (
                 <a
-                  href={activityData?.event?.link}
+                  href={link}
                   onClick={() =>
                     trackAttendees(
                       "Event",

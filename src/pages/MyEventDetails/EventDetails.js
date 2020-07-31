@@ -238,7 +238,7 @@ export default function EventDetails(props) {
           {activeEvent?.link.split(", ").map(link =>
             link.includes("https") ? (
               <a
-                href={activeEvent?.link}
+                href={link}
                 rel="noopener noreferrer"
                 target="_blank"
                 onClick={() =>
@@ -253,7 +253,7 @@ export default function EventDetails(props) {
               </a>
             ) : (
               <a
-                href={activeEvent?.link}
+                href={link}
                 onClick={() =>
                   trackAttendees(
                     "Event",

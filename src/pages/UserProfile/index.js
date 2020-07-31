@@ -213,7 +213,7 @@ export default function UserProfile() {
   const { data: userProfile, loading, error, refetch } = useQuery(
     GET_USER_PROFILE,
     {
-      variables: { userName: userName },
+      variables: { email: user.email },
     }
   );
   const { data: loggedInUser } = useQuery(GET_LOGGED_IN_USER, {

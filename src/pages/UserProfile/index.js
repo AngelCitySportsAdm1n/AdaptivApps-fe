@@ -222,11 +222,6 @@ export default function UserProfile() {
 
   const loggedInUserName = loggedInUser?.profile?.userName;
   const extendedProfile = userProfile?.profile?.extProfile;
-  console.log("userProfile", userProfile);
-  console.log("logged in user", loggedInUser);
-  console.log("profileOwner", profileOwner);
-  console.log("userName from params", userName);
-  console.log("user from auth0", user);
   //config options for uploading a profile picture
   const profilePictureConfig = {
     bucketName: process.env.REACT_APP_AWS_IMAGE_BUCKET_NAME,

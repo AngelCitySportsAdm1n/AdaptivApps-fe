@@ -166,6 +166,9 @@ const useStyles = makeStyles({
       color: "white",
     },
   },
+  zoomLinks: {
+    marginTop: "3rem",
+  },
 });
 /**
  * Event - Add custom tracking event.
@@ -360,21 +363,31 @@ export default function ActivityList() {
             {activityData.event.speakers !== "" ? (
               <p>Special Guest Speaker(s): {activityData.event.speakers}</p>
             ) : null}
-
-            <a
-              href={activityData.event.link}
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={() =>
-                trackAttendees(
-                  "Event",
-                  "Joined Virtual Event",
-                  "ATTENDEE_ADDED"
-                )
-              }
-            >
-              Click Here to Join Us!
-            </a>
+            <Typography className={classes.zoomLinks} variant="h2">
+              Zoom Meeting Links
+            </Typography>
+            {activityData?.event?.link.split(", ").map(link => (
+              <a
+                href={activityData?.event?.link}
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={() =>
+                  trackAttendees(
+                    "Event",
+                    "Joined Virtual Event",
+                    "ATTENDEE_ADDED"
+                  )
+                }
+              >
+                {link.includes("+1669")
+                  ? `${link} (San Jose)`
+                  : link.includes("+1346")
+                  ? `${link} (Houston)`
+                  : link.includes("+1253")
+                  ? `${link} (Tacoma)`
+                  : link}
+              </a>
+            ))}
           </Box>
         ) : null}
       </Box>

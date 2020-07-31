@@ -135,6 +135,9 @@ const useStyles = makeStyles({
     height: "16rem",
     objectFit: "cover",
   },
+  zoomLinks: {
+    marginTop: "3rem",
+  },
 });
 
 /**
@@ -229,17 +232,31 @@ export default function EventDetails(props) {
           {activeEvent.speakers !== "" ? (
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           ) : null}
-
-          <a
-            href={activeEvent.link}
-            rel="noopener noreferrer"
-            target="_blank"
-            onClick={() =>
-              trackAttendees("Event", "Joined Virtual Event", "ATTENDEE_ADDED")
-            }
-          >
-            Click Here to Join Us!
-          </a>
+          <Typography className={classes.zoomLinks} variant="h2">
+            Zoom Meeting Links
+          </Typography>
+          {activeEvent.link.split(", ").map(link => (
+            <a
+              href={activeEvent.link}
+              rel="noopener noreferrer"
+              target="_blank"
+              onClick={() =>
+                trackAttendees(
+                  "Event",
+                  "Joined Virtual Event",
+                  "ATTENDEE_ADDED"
+                )
+              }
+            >
+              {link.includes("+1669")
+                ? `${link} (San Jose)`
+                : link.includes("+1346")
+                ? `${link} (Houston)`
+                : link.includes("+1253")
+                ? `${link} (Tacoma)`
+                : link}
+            </a>
+          ))}
         </Box>
       ) : null}
       <Box className={classes.detailsContainer}>

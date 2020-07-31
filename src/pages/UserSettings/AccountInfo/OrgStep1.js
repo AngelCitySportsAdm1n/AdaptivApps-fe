@@ -162,7 +162,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         facebook: data.facebook,
         instagram: data.instagram,
         bio: data.bio,
-        userName: data.orgName,
+        userName: data.orgName.trim(),
         orgName: data.orgName,
         website: data.website,
       },

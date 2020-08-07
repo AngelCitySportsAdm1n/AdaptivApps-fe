@@ -235,7 +235,7 @@ export default function Step1({ updateProfile }) {
       variables: {
         email: userEmail,
         firstName: data.firstName,
-        userName: data.userName,
+        userName: data.userName.trim(),
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
         twitter: data.twitter,

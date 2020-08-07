@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const GET_USER_PROFILE = gql`
-  query getUserProfile($email: String!) {
-    profile(where: { email: $email }) {
+  query getUserProfile($userName: String!) {
+    profile(where: { userName: $userName }) {
       id
       type
       private

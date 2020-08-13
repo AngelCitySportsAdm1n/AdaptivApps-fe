@@ -40,6 +40,20 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     margin: "auto",
   },
+  donateBtn: {
+    boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
+    "&:active": {
+      boxShadow: "inset 0px 3px 8px rgba(0,0,0,0.2)",
+    },
+    width: "100%",
+    color: "#2a62fe",
+    backgroundColor: "#FFC629",
+    padding: ".8rem 1.1rem",
+    fontSize: "1.4rem",
+    fontWeight: 550,
+    margin: "auto",
+    border: "none",
+  },
 }));
 
 export default function SponsorBanner() {
@@ -47,6 +61,7 @@ export default function SponsorBanner() {
   const navigate = useNavigate();
 
   return (
+    <>
     <Link
       onClick={() => navigate(`/sponsorspotlight`)}
       aria-label="Click to go to our sponsor spotlight page"
@@ -63,5 +78,16 @@ export default function SponsorBanner() {
         </Tooltip>
       </div>
     </Link>
+    <a href="https://app.mobilecause.com/vf/virtual2020"
+          target="_blank"
+          rel="noopener">
+    <button
+          className={classes.donateBtn}
+          color="primary"
+        >
+          DONATE NOW
+        </button>
+        </a>
+    </>
   );
 }

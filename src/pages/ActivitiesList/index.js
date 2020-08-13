@@ -169,6 +169,20 @@ const useStyles = makeStyles({
   zoomLinks: {
     marginTop: "3rem",
   },
+  donateBtn: {
+    boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
+    "&:active": {
+      boxShadow: "inset 0px 3px 8px rgba(0,0,0,0.2)",
+    },
+    color: "#2a62fe",
+    backgroundColor: "#FFC629",
+    padding: ".8rem 1.1rem",
+    borderRadius: ".5rem",
+    fontSize: "1.4rem",
+    fontWeight: 550,
+    margin: "auto",
+    border: "none",
+  },
 });
 /**
  * Event - Add custom tracking event.
@@ -351,6 +365,15 @@ export default function ActivityList() {
               {activityData.event.location}
             </Typography>
           </Box>
+          <button
+          className={classes.donateBtn}
+          color="primary"
+          href="https://app.mobilecause.com/vf/virtual2020"
+          target="_blank"
+          rel="noopener"
+        >
+          DONATE NOW
+        </button>
         </div>
         {activityData.event.type === "Virtual" ? (
           <Box className={classes.virtualBox}>

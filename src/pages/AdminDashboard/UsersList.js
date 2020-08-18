@@ -10,12 +10,12 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     marginLeft: "1rem",
-    '& .MuiTypography-root': {
-      color: 'black'
+    "& .MuiTypography-root": {
+      color: "black",
     },
-    '& .MuiCheckbox-colorSecondary.Mui-checked': {
-      color: 'black'
-    }
+    "& .MuiCheckbox-colorSecondary.Mui-checked": {
+      color: "black",
+    },
   },
   loadingSpinner: {
     position: "absolute",
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
   dataEntry: {
     fontSize: "1.5rem",
-  }
+  },
 });
 
 // A list of users. Can be customized using material table.
@@ -36,7 +36,7 @@ const UsersList = () => {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-
+  console.log("data in useList", data);
   return (
     <Container className={classes.root}>
       {data && data?.profiles ? (
@@ -47,89 +47,136 @@ const UsersList = () => {
             {
               title: "Email",
               field: "email",
-              render: rowData => <p className={classes.dataEntry}>{rowData.email}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.email}</p>
+              ),
+            },
+            {
+              title: "Role Identity",
+              field: "roleIdentity",
+              render: rowData => (
+                <p className={classes.dataEntry}>
+                  {rowData?.extProfile?.roleIdentity}
+                </p>
+              ),
             },
             {
               title: "First Name",
               field: "firstName",
-              render: rowData => <p className={classes.dataEntry}>{rowData.firstName}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.firstName}</p>
+              ),
             },
             {
               title: "Last Name",
               field: "lastName",
-              render: rowData => <p className={classes.dataEntry}>{rowData.lastName}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.lastName}</p>
+              ),
             },
             {
               title: "City",
               field: "city",
-              render: rowData => <p className={classes.dataEntry}>{rowData.city}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.city}</p>
+              ),
             },
             {
               title: "State",
               field: "state",
-              render: rowData => <p className={classes.dataEntry}>{rowData.state}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.state}</p>
+              ),
             },
             {
               title: "Country",
               field: "country",
-              render: rowData => <p className={classes.dataEntry}>{rowData.country}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.country}</p>
+              ),
             },
             {
               title: "Postal Code",
               field: "postalCode",
-              render: rowData => <p className={classes.dataEntry}>{rowData.postalCode}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.postalCode}</p>
+              ),
             },
             {
               title: "Address1",
               field: "address1",
-              render: rowData => <p className={classes.dataEntry}>{rowData.address1}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.address1}</p>
+              ),
             },
             {
               title: "Address2",
               field: "Address2",
-              render: rowData => <p className={classes.dataEntry}>{rowData.firstaddress2}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>{rowData.firstaddress2}</p>
+              ),
             },
             {
               title: "Gender",
               field: "gender",
-              render: rowData => <p className={classes.dataEntry}>{rowData?.extProfile?.gender}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>
+                  {rowData?.extProfile?.gender}
+                </p>
+              ),
             },
             {
               title: "Birthday",
               field: "birthday",
-              render: rowData => <p className={classes.dataEntry}>{rowData?.extProfile?.birthday}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>
+                  {rowData?.extProfile?.birthday}
+                </p>
+              ),
             },
             {
               title: "T-Shirt Size",
               field: "tShirtSize",
-              render: rowData => <p className={classes.dataEntry}>{rowData?.extProfile?.tShirtSize}</p>,
+              render: rowData => (
+                <p className={classes.dataEntry}>
+                  {rowData?.extProfile?.tShirtSize}
+                </p>
+              ),
             },
             {
               title: "Virtual Ride",
               field: "virtualRide",
               render: rowData => (
-                <p className={classes.dataEntry}>{rowData?.demographicProfile?.virtualRide}</p>
+                <p className={classes.dataEntry}>
+                  {rowData?.demographicProfile?.virtualRide}
+                </p>
               ),
             },
             {
               title: "Virtual Ride Platforms",
               field: "virtualRidePlatforms",
               render: rowData => (
-                <p className={classes.dataEntry}>{rowData?.demographicProfile?.virtualRidePlatforms}</p>
+                <p className={classes.dataEntry}>
+                  {rowData?.demographicProfile?.virtualRidePlatforms}
+                </p>
               ),
             },
             {
               title: "X-Box GamePass",
               field: "xBoxGamePass",
               render: rowData => (
-                <p className={classes.dataEntry}>{rowData?.demographicProfile?.xBoxGamePass}</p>
+                <p className={classes.dataEntry}>
+                  {rowData?.demographicProfile?.xBoxGamePass}
+                </p>
               ),
             },
             {
               title: "Video Game Familiarity",
               field: "videoGameFamiliarity",
               render: rowData => (
-                <p className={classes.dataEntry}>{rowData?.demographicProfile?.videoGameFamiliarity}</p>
+                <p className={classes.dataEntry}>
+                  {rowData?.demographicProfile?.videoGameFamiliarity}
+                </p>
               ),
             },
           ]}
@@ -143,9 +190,9 @@ const UsersList = () => {
             emptyRowsWhenPaging: false,
             filtering: true,
             headerStyle: {
-              fontSize: "4.5rem"
+              fontSize: "4.5rem",
             },
-            exportAllData: true
+            exportAllData: true,
           }}
         />
       ) : null}

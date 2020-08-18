@@ -62,32 +62,31 @@ export default function SponsorBanner() {
 
   return (
     <>
-    <Link
-      onClick={() => navigate(`/sponsorspotlight`)}
-      aria-label="Click to go to our sponsor spotlight page"
-    >
-      <div className={classes.banner}>
-        <Tooltip title="Check out our sponsors">
-          <button
-            aria-label="click here to check out our sponsor page"
-            className={classes.btn}
-          >
-            <img src={Sponsor_Photo} className={classes.image} />
-            <img src={Sponsors_Text} className={classes.sponsors} />
-          </button>
-        </Tooltip>
-      </div>
-    </Link>
-    <a href="https://app.mobilecause.com/vf/virtual2020"
-          target="_blank"
-          rel="noopener">
-    <button
-          className={classes.donateBtn}
-          color="primary"
-        >
+      <Link
+        onClick={() => navigate(`/sponsorspotlight`)}
+        aria-label="Click to go to our sponsor spotlight page"
+      >
+        <div className={classes.banner}>
+          <Tooltip title="Check out our sponsors">
+            <button
+              aria-label="click here to check out our sponsor page"
+              className={classes.btn}
+            >
+              <img src={Sponsor_Photo} className={classes.image} />
+              <img src={Sponsors_Text} className={classes.sponsors} />
+            </button>
+          </Tooltip>
+        </div>
+      </Link>
+      <a
+        href="https://app.mobilecause.com/vf/virtual2020"
+        target="_blank"
+        rel="noopener"
+      >
+        <button className={classes.donateBtn} color="primary">
           DONATE NOW
         </button>
-        </a>
+      </a>
     </>
   );
 }

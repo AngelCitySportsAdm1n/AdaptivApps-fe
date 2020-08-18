@@ -366,14 +366,14 @@ export default function ActivityList() {
             </Typography>
           </Box>
           <button
-          className={classes.donateBtn}
-          color="primary"
-          href="https://app.mobilecause.com/vf/virtual2020"
-          target="_blank"
-          rel="noopener"
-        >
-          DONATE NOW
-        </button>
+            className={classes.donateBtn}
+            color="primary"
+            href="https://app.mobilecause.com/vf/virtual2020"
+            target="_blank"
+            rel="noopener"
+          >
+            DONATE NOW
+          </button>
         </div>
         {activityData.event.type === "Virtual" ? (
           <Box className={classes.virtualBox}>

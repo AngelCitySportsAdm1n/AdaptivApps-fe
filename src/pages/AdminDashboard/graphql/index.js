@@ -18,6 +18,7 @@ export const GET_USERS = gql`
         gender
         tShirtSize
         birthday
+        roleIdentity
       }
       demographicProfile {
         id
